@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const morgan = require('morgan');
+const cors = require('cors');
 const helmet = require('helmet');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
@@ -25,20 +26,19 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use(morgan('dev'));
-
-// Passport config
+// Passport Config
 require('./config/passport')(passport);
 
-/////////// Use Routes /////////////
+//////// Use Routes /////////////
 server.use('/api/users', users);
 server.use('/api/profile', profile);
 server.use('/api/posts', posts);
 
 // Server static assets if in production
-if (process.env.Node_ENV === 'production') {
-	// set static folder
+if (process.env.NODE_ENV === 'production') {
+	// Set static folder
 	server.use(express.static('client/build'));
-	// get all from client/build folder
+
 	server.get('*', (req, res) => {
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 	});
