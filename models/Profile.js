@@ -13,16 +13,20 @@ const ProfileSchema = new Schema({
 	},
 	theme: {
 		sidebar: {
-			type: String
+			type: String,
+			default: '#000E0F'
 		},
 		active: {
-			type: String
+			type: String,
+			default: '#34EAF5'
 		},
 		inactive: {
-			type: String
+			type: String,
+			default: '#1B8389'
 		},
 		header: {
-			type: String
+			type: String,
+			default: '#FFFFFF'
 		}
 	},
 	date: {
