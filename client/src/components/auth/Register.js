@@ -57,7 +57,10 @@ class Register extends React.Component {
 		const { errors, name, email, password, password2 } = this.state;
 		return (
 			<Wrapper>
-				<Back to="/">Back</Back>
+				<LinkButt>
+					<Back to="/">Back</Back>
+					<Back to="/login">Sign in</Back>
+				</LinkButt>
 				<Heading>
 					<div>
 						<img src={logo} alt="Chatify logo" />
@@ -130,12 +133,19 @@ const mapStateToProps = (state) => ({
 // connects this component to the context store
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));
 
+const LinkButt = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin: 0 auto;
+	width: 500px;
+`;
+
 const Back = styled(Link)`
   text-decoration: none;
   background: #E1E1E1;
   padding: 10px;
   margin: 10px;
-  margin-right: 500px;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
   &:hover {
