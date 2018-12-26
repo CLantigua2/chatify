@@ -18,13 +18,13 @@ class Landing extends Component {
 					</Zoom>
 					<Zoom>
 						<About>
-							<h1>Chatify</h1>
+							<h1>Chat||fy</h1>
 							<p>Join your friends today.</p>
-							<Friends>
+							<div>
 								<img src={p1} alt="first friend avatar" />
 								<img src={p2} alt="second friend avatar" />
 								<img src={p3} alt="third friend avatar" />
-							</Friends>
+							</div>
 							<Links>
 								<Button to="/sign-in" primary="true">
 									<span>Sign In</span>
@@ -35,7 +35,7 @@ class Landing extends Component {
 							</Links>
 						</About>
 						<div>
-							<Slack src={slack} alt="slack thumbnail" />
+							<img src={slack} alt="slack thumbnail" />
 						</div>
 					</Zoom>
 				</Header>
@@ -46,14 +46,78 @@ class Landing extends Component {
 
 export default Landing;
 
-const Slack = styled.img`
-	width: 400px;
-	border-radius: 25px;
+const Container = styled.div`
+	background: #816fea;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	height: 100vh;
+`;
+
+const Header = styled.div`
+	width: 82%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: 0 auto;
+
+	h1 {
+		font-family: 'ZCOOL XiaoWei', serif;
+		font-size: 6rem;
+	}
+	p {
+		border-top: 2px solid ${(props) => props.theme.offWhite};
+		padding: 40px;
+		margin-top: 30px;
+		color: ${(props) => props.theme.offWhite};
+	}
+	div {
+		img {
+			width: 400px;
+			border-radius: 25px;
+			box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
+			transition: 0.5s ease-in-out;
+			&:hover {
+				transform: scale(1.2);
+			}
+		}
+	}
+`;
+
+const About = styled.div`
+	background: rgba(0, 0, 0, 0.3);
+	padding: 35px;
+	border-radius: 10px;
 	box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
+	height: 400px;
 	transition: 0.5s ease-in-out;
 	&:hover {
 		transform: scale(1.2);
 	}
+	div {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		width: 100%;
+		img {
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
+			box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
+		}
+	}
+`;
+
+const Links = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: flex-end;
+	height: 100px;
 `;
 
 const Button = styled(Link)`
@@ -90,70 +154,6 @@ const Button = styled(Link)`
 	&:hover span:after {
 		opacity: 1;
 		right: 0;
-	}
-`;
-
-const Links = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	align-items: flex-end;
-	height: 100px;
-`;
-
-const Friends = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-	width: 100%;
-	img {
-		border-radius: 50%;
-		width: 50px;
-		height: 50px;
-		box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
-	}
-`;
-
-const About = styled.div`
-	background: rgba(0, 0, 0, 0.3);
-	padding: 35px;
-	border-radius: 10px;
-	box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
-	height: 400px;
-	transition: 0.5s ease-in-out;
-	&:hover {
-		transform: scale(1.2);
-	}
-`;
-
-const Container = styled.div`
-	background: #816fea;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin: 0 auto;
-	height: 100vh;
-`;
-
-const Header = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	align-items: center;
-	margin: 0 auto;
-
-	h1 {
-		font-family: 'ZCOOL XiaoWei', serif;
-		font-size: 6rem;
-	}
-	p {
-		border-top: 2px solid ${(props) => props.theme.offWhite};
-		padding: 40px;
-		margin-top: 30px;
-		color: ${(props) => props.theme.offWhite};
 	}
 `;
 
