@@ -10,6 +10,7 @@ export const theme = {
 	offWhite: '#EDEDED'
 };
 export const GlobalStyle = createGlobalStyle`
+
   html, body, div, span, applet, object, iframe,
 	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 	a, abbr, acronym, address, big, cite, code,
@@ -36,8 +37,12 @@ export const GlobalStyle = createGlobalStyle`
 	footer, header, hgroup, menu, nav, section {
 		display: block;
 	}
-	body {
+
+		html {
 		font-size: 62.5%;
+	}
+	body {
+
 	line-height: 1;
 }
 ol, ul {

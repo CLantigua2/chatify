@@ -5,17 +5,15 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import propTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../../redux/actions/authActions';
+import { loginUser } from '../../redux/actions/authActions';
 
 // this is the sidebar component for the main login page
-class Register extends React.Component {
+class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: '',
 			email: '',
 			password: '',
-			password2: '',
 			errors: {}
 		};
 	}
@@ -54,33 +52,24 @@ class Register extends React.Component {
 	}
 
 	render() {
-		const { errors, name, email, password, password2 } = this.state;
+		const { errors, email, password } = this.state;
 		return (
 			<Wrapper>
 				<LinkButt>
 					<Back to="/">Back</Back>
-					<Back to="/login">Login</Back>
+					<Back to="/register">Register</Back>
 				</LinkButt>
 				<Heading>
 					<div>
 						<img src={logo} alt="Chatify logo" />
 					</div>
 					<div>
-						<H1>Sign up</H1>
-						<p>Let's do it, it's free..</p>
+						<H1>Sign in</H1>
+						<p>We knew you would be back</p>
 					</div>
 				</Heading>
 				<Container>
 					<Form onSubmit={this.onSubmit}>
-						<TextFieldGroup
-							placeholder="Name..."
-							name="name"
-							type="name"
-							value={name}
-							handleChange={this.handleChange}
-							error={errors.name}
-							autoComplete="name"
-						/>
 						<TextFieldGroup
 							placeholder="Email..."
 							name="email"
@@ -100,15 +89,7 @@ class Register extends React.Component {
 							error={errors.password}
 							autoComplete="password"
 						/>
-						<TextFieldGroup
-							placeholder="Please type your password again..."
-							name="password2"
-							type="password"
-							value={password2}
-							handleChange={this.handleChange}
-							error={errors.password2}
-							autoComplete="password"
-						/>
+
 						<Button type="submit">
 							<span>Submit</span>
 						</Button>
@@ -119,8 +100,8 @@ class Register extends React.Component {
 	}
 }
 
-Register.propTypes = {
-	registerUser: propTypes.func.isRequired,
+Login.propTypes = {
+	loginUser: propTypes.func.isRequired,
 	auth: propTypes.object.isRequired,
 	errors: propTypes.object.isRequired
 };
@@ -131,7 +112,7 @@ const mapStateToProps = (state) => ({
 });
 
 // connects this component to the context store
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(mapStateToProps, { loginUser })(withRouter(Login));
 
 const H1 = styled.h1`margin: 10px 0;`;
 

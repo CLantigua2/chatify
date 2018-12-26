@@ -21,15 +21,15 @@ class Landing extends Component {
 					<Zoom>
 						<About>
 							<h1>Chat||fy</h1>
-							<p>Join your friends today.</p>
+							<h5>Join your friends today.</h5>
 							<div>
 								<img src={p1} alt="first friend avatar" />
 								<img src={p2} alt="second friend avatar" />
 								<img src={p3} alt="third friend avatar" />
 							</div>
 							<Links>
-								<Button to="/sign-in" primary="true">
-									<span>Sign In</span>
+								<Button to="/login" primary="true">
+									<span>LogIn</span>
 								</Button>
 								<Button to="/register">
 									<span>Register</span>
@@ -66,23 +66,22 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-	/* width: 82%; */
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
 	align-items: center;
+	width: 100%;
 	h1 {
 		font-family: 'ZCOOL XiaoWei', serif;
-		font-size: 6rem;
+		font-size: 6.5rem;
 	}
-	p {
+	h5 {
 		border-top: 2px solid ${(props) => props.theme.offWhite};
 		padding: 40px;
 		margin-top: 30px;
 		color: ${(props) => props.theme.offWhite};
 	}
 	div {
-		margin-right: 5%;
 		img {
 			margin-left: -20px;
 			width: 400px;
@@ -97,15 +96,12 @@ const Header = styled.div`
 `;
 
 const About = styled.div`
-	background: rgba(0, 0, 0, 0.3);
+	background: #816fea;
 	padding: 35px;
 	border-radius: 10px;
 	height: 400px;
-	transition: 0.5s ease-in-out;
-	&:hover {
-		transform: scale(1.025);
-		box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
-	}
+	margin-right: 100px;
+	transform: scale(1.5);
 	div {
 		display: flex;
 		flex-direction: row;
@@ -132,13 +128,11 @@ const Links = styled.div`
 
 const Button = styled(Link)`
   background-color: ${(props) => (props.primary ? 'rgb(28,184,65)' : 'rgb(202, 60, 60)')};
-  width: 120px;
+  width: 100px;
 	display: inline-block;
 	border-radius: 4px;
 	border: none;
-	font-weight: bold;
 	text-align: center;
-	font-size: 18px;
 	padding: 10px;
 	transition: all 0.5s;
 	cursor: pointer;
@@ -156,13 +150,13 @@ const Button = styled(Link)`
 		opacity: 0;
 		top: 0;
 		right: -20px;
-		transition: 0.5s;
+    transition: 0.5s;
 	}
 	&:hover span {
-		padding-right: 25px;
+    padding-right: 25px;
 	}
 	&:hover span:after {
-		opacity: 1;
+    opacity: 1;
 		right: 0;
 	}
 `;
