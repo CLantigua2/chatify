@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, theme } from './globalStyle';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Landing from './components/landing/Landing';
+import Register from './components/auth/Register';
 
 class App extends Component {
 	render() {
@@ -10,7 +11,10 @@ class App extends Component {
 			<div>
 				<GlobalStyle />
 				<ThemeProvider theme={theme}>
-					<Route to="/" component={Landing} />
+					<div>
+						<Route exact path="/" component={Landing} />
+						<Route exact path="/register" component={Register} />
+					</div>
 				</ThemeProvider>
 			</div>
 		);

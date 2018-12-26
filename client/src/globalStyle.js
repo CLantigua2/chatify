@@ -26,18 +26,18 @@ export const GlobalStyle = createGlobalStyle`
 		margin: 0;
 		padding: 0;
 		border: 0;
-		font-size: 62.5%;
 		font: inherit;
 		vertical-align: baseline;
 		color: ${theme.darkBlack};
-		font-family: 'Roboto Condensed', sans-serif;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
+		font-family: 'Roboto Condensed';
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure,
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		font-size: 62.5%;
 	line-height: 1;
 }
 ol, ul {

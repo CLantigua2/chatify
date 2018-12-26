@@ -1,0 +1,222 @@
+import React from 'react';
+import styled from 'styled-components';
+import logo from '../../img/robot.png';
+import TextFieldGroup from '../common/TextFieldGroup';
+import propTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { registerUser } from '../../redux/actions/authActions';
+
+// this is the sidebar component for the main login page
+class Register extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			name: '',
+			email: '',
+			password: '',
+			password2: '',
+			errors: {}
+		};
+	}
+
+	handleChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	onSubmit = (e) => {
+		e.preventDefault();
+		const { name, email, password, password2 } = this.state;
+		const newUser = {
+			name,
+			email,
+			password,
+			password2
+		};
+
+		this.props.registerUser(newUser, this.props.history);
+	};
+
+	componentDidMount() {
+		if (this.props.auth.isAuthenticated) {
+			this.props.history.push('/chatify');
+		}
+	}
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		return nextProps.errors ? { errors: nextProps.errors } : null;
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.errors !== this.props.errors) {
+			this.setState({ errors: this.props.errors });
+		}
+	}
+
+	render() {
+		const { errors, name, email, password, password2 } = this.state;
+		return (
+			<Wrapper>
+				<Back to="/">Back</Back>
+				<Heading>
+					<div>
+						<img src={logo} alt="Chatify logo" />
+					</div>
+					<div>
+						<h1>Sign up</h1>
+						<p>It's free..</p>
+					</div>
+				</Heading>
+				<Container>
+					<Form onSubmit={this.onSubmit}>
+						<TextFieldGroup
+							placeholder="Name..."
+							name="name"
+							type="name"
+							value={name}
+							handleChange={this.handleChange}
+							error={errors.name}
+							autoComplete="name"
+						/>
+						<TextFieldGroup
+							placeholder="Email..."
+							name="email"
+							type="email"
+							value={email}
+							handleChange={this.handleChange}
+							error={errors.email}
+							autoComplete="email"
+							info="This site uses Gravatar, please upload one if you want a profile image"
+						/>
+						<TextFieldGroup
+							placeholder="Password..."
+							name="password"
+							type="password"
+							value={password}
+							handleChange={this.handleChange}
+							error={errors.password}
+							autoComplete="password"
+						/>
+						<TextFieldGroup
+							placeholder="Please type your password again..."
+							name="password2"
+							type="password"
+							value={password2}
+							handleChange={this.handleChange}
+							error={errors.password2}
+							autoComplete="password"
+						/>
+						<Button type="submit">
+							<span>Submit</span>
+						</Button>
+					</Form>
+				</Container>
+			</Wrapper>
+		);
+	}
+}
+
+Register.propTypes = {
+	registerUser: propTypes.func.isRequired,
+	auth: propTypes.string.isRequired,
+	errors: propTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	errors: state.errors
+});
+
+// connects this component to the context store
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+
+const Back = styled(Link)`
+  text-decoration: none;
+  background: #E1E1E1;
+  padding: 10px;
+  margin: 10px;
+  margin-right: 500px;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background: #C6C6C6;
+  }
+`;
+
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		border-radius: 50%;
+		width: 200px;
+		height: 176px;
+	}
+`;
+
+const Heading = styled.div`
+	display: flex;
+	flex-direction: row;
+	width: 450px;
+	justify-content: space-between;
+	align-items: center;
+	margin: 50px auto;
+`;
+
+const Container = styled.div`
+	width: 600px;
+	box-shadow: 0px 0px 14px 1px rgba(0, 0, 0, 0.41);
+	margin: 0 auto;
+	padding: 20px;
+	overflow-x: hidden;
+	transition: 0.3s ease-in-out;
+	border-radius: 10px;
+	background-color: #ffffff;
+`;
+
+const Form = styled.form`
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+`;
+
+const Button = styled.button`
+	display: inline-block;
+	border-radius: 4px;
+	background-color: #0091ca;
+	border: none;
+	text-align: center;
+	font-size: 18px;
+	padding: 10px;
+	width: 120px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+	margin-top: 20px;
+	span {
+		font-size: 1.6rem;
+		color: #ffffff;
+		cursor: pointer;
+		display: inline-block;
+		position: relative;
+		transition: 0.5s;
+	}
+	span:after {
+		content: '\00bb';
+		position: absolute;
+		opacity: 0;
+		top: 0;
+		right: -20px;
+		transition: 0.5s;
+	}
+	&:hover span {
+		padding-right: 25px;
+	}
+	&:hover span:after {
+		opacity: 1;
+		right: 0;
+	}
+`;

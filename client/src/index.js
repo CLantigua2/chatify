@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router } from 'react-router-dom';
-
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import jwt_decode from 'jwt-decode';
@@ -12,27 +11,28 @@ import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 import { clearCurrentProfile } from './redux/actions/profileActions';
 
-// check for token
+// Check for token
 if (localStorage.jwt) {
-	// set auth token header to auth
+	// Set auth Token header auth
 	setAuthToken(localStorage.jwt);
-	// decode token and get user info
+	// Decode token and get user info and exp
 	const decoded = jwt_decode(localStorage.jwt);
-	// set user and isAuthenticated
+	// Set user and isAuthenticated
 	store.dispatch(setCurrentUser(decoded));
 
-	// check for expired token
+	// Check for expired token
 	const currentTime = Date.now() / 1000;
 	if (decoded.exp < currentTime) {
 		// logout user
 		store.dispatch(logoutUser());
-		// clear current profile
+		// Clear current profile
 		store.dispatch(clearCurrentProfile());
 		// Redirect to login
 		window.location.href = '/login';
 	}
 }
 
+// wrap the redux provider and give it the store value
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>

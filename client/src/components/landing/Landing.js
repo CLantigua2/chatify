@@ -7,6 +7,8 @@ import p2 from '../../img/p2.jpg';
 import p3 from '../../img/p3.jpg';
 import slack from '../../img/slack.PNG';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 class Landing extends Component {
 	render() {
@@ -44,7 +46,15 @@ class Landing extends Component {
 	}
 }
 
-export default Landing;
+Landing.propTypes = {
+	auth: propTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps)(Landing);
 
 const Container = styled.div`
 	background: #816fea;
@@ -56,13 +66,11 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-	width: 82%;
+	/* width: 82%; */
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
 	align-items: center;
-	margin: 0 auto;
-
 	h1 {
 		font-family: 'ZCOOL XiaoWei', serif;
 		font-size: 6rem;
@@ -74,13 +82,15 @@ const Header = styled.div`
 		color: ${(props) => props.theme.offWhite};
 	}
 	div {
+		margin-right: 5%;
 		img {
+			margin-left: -20px;
 			width: 400px;
 			border-radius: 25px;
-			box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
 			transition: 0.5s ease-in-out;
 			&:hover {
-				transform: scale(1.2);
+				box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
+				transform: scale(1.025);
 			}
 		}
 	}
@@ -90,11 +100,11 @@ const About = styled.div`
 	background: rgba(0, 0, 0, 0.3);
 	padding: 35px;
 	border-radius: 10px;
-	box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
 	height: 400px;
 	transition: 0.5s ease-in-out;
 	&:hover {
-		transform: scale(1.2);
+		transform: scale(1.025);
+		box-shadow: 3px 6px 22px 0px rgba(0, 0, 0, 0.75);
 	}
 	div {
 		display: flex;
