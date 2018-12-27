@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
+const channels = require('./routes/api/channels');
 const path = require('path');
 
 const server = express();
@@ -33,6 +34,7 @@ require('./config/passport')(passport);
 server.use('/api/users', users);
 server.use('/api/profile', profile);
 server.use('/api/posts', posts);
+server.use('./api/channels', channels);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
