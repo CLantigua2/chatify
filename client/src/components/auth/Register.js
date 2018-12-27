@@ -5,7 +5,7 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import propTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../../redux/actions/authActions';
+import { registerUser, clearErrors } from '../../redux/actions/authActions';
 
 // this is the sidebar component for the main login page
 class Register extends React.Component {
@@ -41,6 +41,7 @@ class Register extends React.Component {
 		if (this.props.auth.isAuthenticated) {
 			this.props.history.push('/chatify');
 		}
+		this.props.clearErrors();
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -122,7 +123,8 @@ class Register extends React.Component {
 Register.propTypes = {
 	registerUser: propTypes.func.isRequired,
 	auth: propTypes.object.isRequired,
-	errors: propTypes.object.isRequired
+	errors: propTypes.object.isRequired,
+	clearErrors: propTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -131,7 +133,7 @@ const mapStateToProps = (state) => ({
 });
 
 // connects this component to the context store
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(mapStateToProps, { registerUser, clearErrors })(withRouter(Register));
 
 const H1 = styled.h1`margin: 10px 0;`;
 

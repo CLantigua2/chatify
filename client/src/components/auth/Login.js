@@ -5,7 +5,7 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import propTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../../redux/actions/authActions';
+import { loginUser, clearErrors } from '../../redux/actions/authActions';
 
 // this is the sidebar component for the main login page
 class Login extends React.Component {
@@ -32,17 +32,18 @@ class Login extends React.Component {
 			password2
 		};
 
-		this.props.registerUser(newUser, this.props.history);
+		this.props.loginUser(newUser, this.props.history);
 	};
 
 	componentDidMount() {
 		if (this.props.auth.isAuthenticated) {
 			this.props.history.push('/chatify');
 		}
+		this.props.clearErrors();
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
-		return nextProps.errors ? { errors: nextProps.errors } : null;
+		return nextProps.errors ? { errors: nextProps.errors } : this.props.clearErrors();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -103,7 +104,8 @@ class Login extends React.Component {
 Login.propTypes = {
 	loginUser: propTypes.func.isRequired,
 	auth: propTypes.object.isRequired,
-	errors: propTypes.object.isRequired
+	errors: propTypes.object.isRequired,
+	clearErrors: propTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -112,7 +114,7 @@ const mapStateToProps = (state) => ({
 });
 
 // connects this component to the context store
-export default connect(mapStateToProps, { loginUser })(withRouter(Login));
+export default connect(mapStateToProps, { loginUser, clearErrors })(withRouter(Login));
 
 const H1 = styled.h1`margin: 10px 0;`;
 
@@ -129,7 +131,6 @@ const Back = styled(Link)`
   background: #E1E1E1;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: 200;
-  /* font-size: 1.2rem; */
   padding: 13px;
   margin: 10px;
   border-radius: 10px;
