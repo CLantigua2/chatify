@@ -59,8 +59,8 @@ class Register extends React.Component {
 		return (
 			<Wrapper>
 				<LinkButt>
-					<Back to="/">Back</Back>
-					<Back to="/login">Login</Back>
+					<Back to="/">BACK</Back>
+					<Back to="/login">LOGIN</Back>
 				</LinkButt>
 				<Heading>
 					<div>

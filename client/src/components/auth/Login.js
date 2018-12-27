@@ -57,8 +57,8 @@ class Login extends React.Component {
 		return (
 			<Wrapper>
 				<LinkButt>
-					<Back to="/">Back</Back>
-					<Back to="/register">Register</Back>
+					<Back to="/">BACK</Back>
+					<Back to="/register">REGISTER</Back>
 				</LinkButt>
 				<Heading>
 					<div>

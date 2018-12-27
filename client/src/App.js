@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 import Landing from './components/landing/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import { connectedRouter } from 'connected-react-router';
+import PrivateRoute from './components/common/PrivateRoute';
 
 const App = (history) => {
 	return (
