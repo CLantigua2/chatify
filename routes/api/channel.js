@@ -3,42 +3,43 @@ const router = express.Router();
 const passport = require('passport');
 
 // Post model
-const Post = require('../../models/Post');
+const Channel = require('../../models/channel');
 // Profile model
 const Profile = require('../../models/Profile');
 
 // Validation
-const validatePostInput = require('../../validation/post');
+// const validateChannelInput = require('../../validation/channel');
+const { validatePostInput, validateChannelInput } = require('../../validation/channel');
 
 // @route   GET api/posts/test
 // @desc    Tests post route
 // @access  Public
-router.get('/test', (req, res) => res.json({ msg: 'Posts Works' }));
+router.get('/test', (req, res) => res.json({ msg: 'Channels Works' }));
 
-// @route   GET api/posts
-// @desc    Get posts
+// @route   GET api/channel
+// @desc    Get channel
 // @access  Public
 router.get('/', (req, res) => {
-	Post.find()
+	Channel.find()
 		.sort({ date: -1 })
-		.then((posts) => res.json(posts))
+		.then((channel) => res.json(channel))
 		.catch((err) => res.status(404).json({ nopostsfound: 'No posts found' }));
 });
 
-// @route   GET api/posts/:id
+// @route   GET api/channel/:id
 // @desc    Get post by id
 // @access  Public
 router.get('/:id', (req, res) => {
-	Post.findById(req.params.id)
-		.then((post) => res.json(post))
-		.catch((err) => res.status(404).json({ nopostfound: 'No post found with that ID' }));
+	Channel.findById(req.params.id)
+		.then((channel) => res.json(channel))
+		.catch((err) => res.status(404).json({ nopostfound: 'No channel found with that ID' }));
 });
 
-// @route   POST api/posts
-// @desc    Create post
+// @route   POST api/channel
+// @desc    Create channel
 // @access  Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-	const { errors, isValid } = validatePostInput(req.body);
+	const { errors, isValid } = validateChannelInput(req.body);
 
 	// Check Validation
 	if (!isValid) {
@@ -46,31 +47,30 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 		return res.status(400).json(errors);
 	}
 
-	const newPost = new Post({
-		text: req.body.text,
+	const newChannel = new Channel({
 		name: req.body.name,
-		avatar: req.body.avatar,
+		purpose: req.body.purpose,
 		user: req.user.id
 	});
-	newPost.save().then((post) => res.json(post));
+	newChannel.save().then((channel) => res.json(channel));
 });
 
-// @route   DELETE api/posts/:id
+// @route   DELETE api/channel/:id
 // @desc    Delete post
 // @access  Private
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
 	Profile.findOne({ user: req.user.id }).then((profile) => {
-		Post.findById(req.params.id)
-			.then((post) => {
+		Channel.findById(req.params.id)
+			.then((channel) => {
 				// Check for post owner
-				if (post.user.toString() !== req.user.id) {
+				if (channel.user.toString() !== req.user.id) {
 					return res.status(401).json({ notauthorized: 'User not authorized' });
 				}
 
 				// Delete
-				post.remove().then(() => res.json({ success: true }));
+				channel.remove().then(() => res.json({ success: true }));
 			})
-			.catch((err) => res.status(404).json({ postnotfound: 'No post found' }));
+			.catch((err) => res.status(404).json({ channelnotfound: 'No channel found' }));
 	});
 });
 

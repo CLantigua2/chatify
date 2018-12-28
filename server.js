@@ -2,12 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
-const posts = require('./routes/api/posts');
-const channels = require('./routes/api/channels');
+const channels = require('./routes/api/channel');
 const path = require('path');
 
 const server = express();
@@ -27,14 +27,17 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use(morgan('dev'));
+// parse application/x-www-form-urlencoded
+server.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+server.use(bodyParser.json());
 // Passport Config
 require('./config/passport')(passport);
 
 //////// Use Routes /////////////
 server.use('/api/users', users);
 server.use('/api/profile', profile);
-server.use('/api/posts', posts);
-server.use('./api/channels', channels);
+server.use('/api/channels', channels);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
