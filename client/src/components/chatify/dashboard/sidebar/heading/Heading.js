@@ -7,10 +7,18 @@ class Heading extends Component {
 		const { auth } = this.props;
 		console.log(auth);
 		return (
-			<Container>
-				<Image src={auth.user.avatar} alt="" />
-				<H4>{auth.user.name}</H4>
-			</Container>
+			<div>
+				<Container>
+					<Image src={auth.user.avatar} alt={auth.user.name} />
+					<H4>{auth.user.name}</H4>
+				</Container>
+				<MakeChannel>
+					<p>Make a channel</p>
+					<button>
+						<i className="fas fa-plus-square" />
+					</button>
+				</MakeChannel>
+			</div>
 		);
 	}
 }
@@ -34,4 +42,28 @@ const Image = styled.img`
 	margin-right: 10px;
 `;
 
+const MakeChannel = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 20px;
+	p {
+		color: ${(props) => props.theme.active};
+	}
+	button {
+		padding: 0;
+		margin: 0;
+		border: transparent;
+		background: transparent;
+		i {
+			color: ${(props) => props.theme.inactive};
+			font-size: 2rem;
+			cursor: pointer;
+			&:hover {
+				color: ${(props) => props.theme.active};
+			}
+		}
+	}
+`;
 const H4 = styled.h4`color: ${(props) => props.theme.active};`;
