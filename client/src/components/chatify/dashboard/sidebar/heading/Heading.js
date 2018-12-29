@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { logoutUser } from '../../../../../redux/actions/authActions';
+import propTypes from 'prop-types';
+import { logoutUser, clearErrors } from '../../../../../redux/actions/authActions';
+import { addChannel } from '../../../../../redux/actions/channelActions';
+import TextFieldGroup from '../../../../common/TextFieldGroup';
 
 class Heading extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showMenu: false
+			showMenu: false,
+			channelOptions: false,
+			name: '',
+			purpose: '',
+			errors: {}
 		};
 	}
 
@@ -23,8 +30,41 @@ class Heading extends Component {
 		this.props.logoutUser();
 	};
 
+	createChannel = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		this.setState({
+			channelOptions: !this.state.channelOptions
+		});
+	};
+
+	onSubmit = (e) => {
+		e.preventDefault();
+		const { name, purpose } = this.state;
+		const newChannel = { name, purpose };
+		if (newChannel.name.length > 0) {
+			this.props.addChannel(newChannel);
+			this.setState({ channelOptions: false });
+		}
+	};
+
+	handleChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		return nextProps.errors ? { errors: nextProps.errors } : this.props.clearErrors();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.errors !== this.props.errors) {
+			this.setState({ errors: this.props.errors });
+		}
+	}
+
 	render() {
 		const { auth } = this.props;
+		const { errors, name, purpose } = this.state;
 		return (
 			<div>
 				<Wrapper>
@@ -62,20 +102,70 @@ class Heading extends Component {
 				</Wrapper>
 				<MakeChannel>
 					<p>Make a channel</p>
-					<button>
-						<i className="fas fa-plus-square" />
-					</button>
+					<div>
+						<button onClick={this.createChannel}>
+							<i className="fas fa-plus-square" />
+						</button>
+					</div>
+					{this.state.channelOptions ? (
+						<Form onSubmit={this.onSubmit}>
+							<h5>Create Your Own Channel..</h5>
+							<div>
+								<i className="fas fa-charging-station" />
+								<TextFieldGroup
+									placeholder="Name your channel..."
+									name="name"
+									type="text"
+									value={name.toLowerCase().replace(' ', '_')}
+									handleChange={this.handleChange}
+									error={errors.name}
+									autoComplete="name"
+								/>
+							</div>
+							<div>
+								<i className="fas fa-wind" />
+								<TextFieldGroup
+									placeholder="Give it a purpose, not required..."
+									name="purpose"
+									type="text"
+									value={purpose}
+									handleChange={this.handleChange}
+									autoComplete="purpose"
+								/>
+							</div>
+							<button type="submit">Add Channel</button>
+						</Form>
+					) : null}
 				</MakeChannel>
 			</div>
 		);
 	}
 }
 
+Heading.propTypes = {
+	auth: propTypes.object.isRequired,
+	errors: propTypes.object.isRequired,
+	logoutUser: propTypes.func.isRequired,
+	addChannel: propTypes.func.isRequired
+};
+
 const mapStateToProps = (state) => ({
-	auth: state.auth
+	auth: state.auth,
+	errors: state.errors
 });
 
-export default connect(mapStateToProps, { logoutUser })(Heading);
+export default connect(mapStateToProps, { logoutUser, clearErrors, addChannel })(Heading);
+
+const Form = styled.form`
+	position: absolute;
+	left: 211px;
+	top: 87px;
+	background: #ffffff;
+	border: 1px solid red;
+	width: 217px;
+	height: 174px;
+	padding: 16px;
+`;
 
 const Dontmove = styled.div`
 	position: absolute;
