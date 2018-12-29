@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import logo from '../../img/robot.png';
 import TextFieldGroup from '../common/TextFieldGroup';
 import propTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser, clearErrors } from '../../redux/actions/authActions';
 
@@ -114,7 +114,7 @@ const mapStateToProps = (state) => ({
 });
 
 // connects this component to the context store
-export default connect(mapStateToProps, { loginUser, clearErrors })(withRouter(Login));
+export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 
 const H1 = styled.h1`margin: 10px 0;`;
 

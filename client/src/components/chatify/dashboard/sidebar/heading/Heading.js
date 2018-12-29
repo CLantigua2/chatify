@@ -12,21 +12,14 @@ class Heading extends Component {
 
 	showMenu = (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 		this.setState({
 			showMenu: !this.state.showMenu
 		});
 	};
 
-	// closeMenu = (e) => {
-	// 	if (this.dropdownMenu.contains(e.target)) {
-	// 		this.setState({ showMenu: false }, () => {
-	// 			document.removeEventListener('click', this.closeMenu);
-	// 		});
-	// 	}
-	// };
 	render() {
 		const { auth } = this.props;
-		console.log(auth);
 		return (
 			<div>
 				<Wrapper>
@@ -46,6 +39,11 @@ class Heading extends Component {
 								<li>
 									<i className="far fa-list-alt" />
 									See Channels
+								</li>
+								<hr />
+								<li>
+									<i className="fas fa-sign-out-alt" />
+									Logout
 								</li>
 								<hr />
 								<li>
@@ -83,17 +81,16 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	/* align-items: center; */
 	i {
 		font-size: 2rem;
 		color: ${(props) => props.theme.inactive};
 		cursor: pointer;
-		transition: 1s ease-in-out;
+		transition: 0.5s ease-in-out;
 		position: relative;
 		left: 5px;
 		&:hover {
 			color: ${(props) => props.theme.active};
-			transform: rotate(180deg);
+			transform: rotate(360deg);
 		}
 	}
 	ul {
@@ -101,7 +98,7 @@ const Wrapper = styled.div`
 		box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.75);
 		background: #ffffff;
 		width: 100%;
-		height: 224px;
+		height: 278px;
 		padding: 10px;
 		border: 1px solid slategray;
 		border-radius: 4px;
@@ -124,6 +121,9 @@ const Wrapper = styled.div`
 
 			i {
 				margin-right: 20px;
+				&:hover {
+					transform: rotate(0deg);
+				}
 			}
 		}
 	}
