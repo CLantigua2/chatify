@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 // styling
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, theme } from './globalStyle';
@@ -9,19 +9,21 @@ import Landing from './components/landing/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import PrivateRoute from './components/common/PrivateRoute';
+import Chatify from './components/chatify/dashboard/Chatify';
 
-const App = (history) => {
+const App = () => {
 	return (
 		<div>
 			<GlobalStyle />
 			<ThemeProvider theme={theme}>
-				<connectedRouter history={history}>
-					<div>
-						<Route exact path="/" component={Landing} />
-						<Route exact path="/register" component={Register} />
-						<Route exact path="/login" component={Login} />
-					</div>
-				</connectedRouter>
+				<div>
+					<Route exact path="/" component={Landing} />
+					<Route exact path="/register" component={Register} />
+					<Route exact path="/login" component={Login} />
+					<Switch>
+						<PrivateRoute path="/chatify" component={Chatify} />
+					</Switch>
+				</div>
 			</ThemeProvider>
 		</div>
 	);

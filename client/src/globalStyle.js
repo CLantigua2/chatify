@@ -3,10 +3,10 @@ import { createGlobalStyle } from 'styled-components';
 export const theme = {
 	darkBlack: '#000000',
 	black: '#393939',
-	grey: '#3A3A3A',
-	lightgrey: '#E1E1E1',
-	darkblue: '#0D253D',
-	gold: '#988144',
+	active: '#32E2EC',
+	inactive: '#1C868D',
+	sidebar: '#000E0F',
+	gray: '#E5E5E5',
 	offWhite: '#EDEDED'
 };
 export const GlobalStyle = createGlobalStyle`

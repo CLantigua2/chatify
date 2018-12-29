@@ -1,9 +1,10 @@
 import React from 'react';
+import Sidebar from './Sidebar';
 
 function Chatify() {
 	return (
 		<div>
-			<h1>container</h1>
+			<Sidebar />
 		</div>
 	);
 }
