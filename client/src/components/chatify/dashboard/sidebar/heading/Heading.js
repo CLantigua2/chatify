@@ -22,8 +22,15 @@ class Heading extends Component {
 		e.preventDefault();
 		e.stopPropagation();
 		this.setState({
-			showMenu: !this.state.showMenu
+			showMenu: true
 		});
+	};
+
+	// Alert if clicked on outside of element
+	handleClickOutside = (e) => {
+		if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
+			this.setState({ showMenu: false, channelOptions: false });
+		}
 	};
 
 	logout = () => {
@@ -42,15 +49,20 @@ class Heading extends Component {
 		e.preventDefault();
 		const { name, purpose } = this.state;
 		const newChannel = { name, purpose };
-		if (newChannel.name.length > 0) {
-			this.props.addChannel(newChannel);
-			this.setState({ channelOptions: false });
-		}
+		this.props.addChannel(newChannel);
 	};
 
 	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
+
+	componentDidMount() {
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClickOutside);
+	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		return nextProps.errors ? { errors: nextProps.errors } : this.props.clearErrors();
@@ -61,6 +73,11 @@ class Heading extends Component {
 			this.setState({ errors: this.props.errors });
 		}
 	}
+
+	// Set the wrapper ref
+	setWrapperRef = (node) => {
+		this.wrapperRef = node;
+	};
 
 	render() {
 		const { auth } = this.props;
@@ -75,7 +92,7 @@ class Heading extends Component {
 					<Dontmove>
 						<i onClick={this.showMenu} className="fas fa-cog" />
 						{this.state.showMenu ? (
-							<ul>
+							<ul ref={this.setWrapperRef}>
 								<li>
 									<i className="fas fa-user-cog" />
 									Edit Profile
@@ -103,14 +120,14 @@ class Heading extends Component {
 				<MakeChannel>
 					<p>Make a channel</p>
 					<div>
-						<button onClick={this.createChannel}>
+						<button className="btn" onClick={this.createChannel}>
 							<i className="fas fa-plus-square" />
 						</button>
 					</div>
 					{this.state.channelOptions ? (
-						<Form onSubmit={this.onSubmit}>
+						<Form onSubmit={this.onSubmit} ref={this.setWrapperRef}>
 							<h5>Create Your Own Channel..</h5>
-							<div>
+							<div className="separator">
 								<i className="fas fa-charging-station" />
 								<TextFieldGroup
 									placeholder="Name your channel..."
@@ -122,7 +139,7 @@ class Heading extends Component {
 									autoComplete="name"
 								/>
 							</div>
-							<div>
+							<div className="separator">
 								<i className="fas fa-wind" />
 								<TextFieldGroup
 									placeholder="Give it a purpose, not required..."
@@ -133,7 +150,9 @@ class Heading extends Component {
 									autoComplete="purpose"
 								/>
 							</div>
-							<button type="submit">Add Channel</button>
+							<Button type="submit">
+								<i className="fas fa-arrow-circle-down" /> Add Channel
+							</Button>
 						</Form>
 					) : null}
 				</MakeChannel>
@@ -160,11 +179,47 @@ const Form = styled.form`
 	position: absolute;
 	left: 211px;
 	top: 87px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	background: #ffffff;
 	border: 1px solid red;
-	width: 217px;
-	height: 174px;
+	width: 238px;
+	height: 239px;
 	padding: 16px;
+	box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.75);
+	background: #ffffff;
+	border: 1px solid slategray;
+	border-radius: 4px;
+	h5 {
+		color: ${(props) => props.theme.inactive};
+	}
+	.separator {
+		margin-top: 20px;
+		color: ${(props) => props.theme.inactive};
+	}
+	i {
+		font-size: 2rem;
+		color: ${(props) => props.theme.inactive};
+	}
+`;
+
+const Button = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 132px;
+	border: 1px solid black;
+	padding: 8px;
+	margin: 10px;
+	border-radius: 25px;
+	cursor: pointer;
+	background: #000000;
+	color: ${(props) => props.theme.active};
+	i {
+		color: ${(props) => props.theme.active};
+	}
 `;
 
 const Dontmove = styled.div`
@@ -246,7 +301,7 @@ const MakeChannel = styled.div`
 	p {
 		color: ${(props) => props.theme.active};
 	}
-	button {
+	.btn {
 		padding: 0;
 		margin: 0;
 		border: transparent;
