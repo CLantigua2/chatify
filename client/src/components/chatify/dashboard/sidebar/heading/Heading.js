@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { logoutUser } from '../../../../../redux/actions/authActions';
 
 class Heading extends Component {
 	constructor(props) {
@@ -16,6 +17,10 @@ class Heading extends Component {
 		this.setState({
 			showMenu: !this.state.showMenu
 		});
+	};
+
+	logout = () => {
+		this.props.logoutUser();
 	};
 
 	render() {
@@ -41,7 +46,7 @@ class Heading extends Component {
 									See Channels
 								</li>
 								<hr />
-								<li>
+								<li onClick={() => this.logout()}>
 									<i className="fas fa-sign-out-alt" />
 									Logout
 								</li>
@@ -70,7 +75,7 @@ const mapStateToProps = (state) => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps)(Heading);
+export default connect(mapStateToProps, { logoutUser })(Heading);
 
 const Dontmove = styled.div`
 	position: absolute;

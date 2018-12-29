@@ -21,7 +21,7 @@ const App = () => {
 					<Route exact path="/register" component={Register} />
 					<Route exact path="/login" component={Login} />
 					<Switch>
-						<PrivateRoute path="/chatify" component={Chatify} />
+						<PrivateRoute exact path="/chatify" component={Chatify} />
 					</Switch>
 				</div>
 			</ThemeProvider>

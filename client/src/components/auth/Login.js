@@ -24,23 +24,14 @@ class Login extends React.Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		const { name, email, password, password2 } = this.state;
+		const { email, password } = this.state;
 		const newUser = {
-			name,
 			email,
-			password,
-			password2
+			password
 		};
 
-		this.props.loginUser(newUser, this.props.history);
+		this.props.loginUser(newUser);
 	};
-
-	componentDidMount() {
-		if (this.props.auth.isAuthenticated) {
-			this.props.history.push('/chatify');
-		}
-		this.props.clearErrors();
-	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		return nextProps.errors ? { errors: nextProps.errors } : this.props.clearErrors();
@@ -49,6 +40,10 @@ class Login extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.errors !== this.props.errors) {
 			this.setState({ errors: this.props.errors });
+		}
+
+		if (this.props.auth.isAuthenticated) {
+			this.props.history.push('/chatify');
 		}
 	}
 

@@ -20,7 +20,7 @@ const BounceAnimation = keyframes`
 `;
 
 const Dot = styled.div`
-	background-color: black;
+	background-color: ${(props) => props.theme.active};
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
