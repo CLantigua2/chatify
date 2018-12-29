@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import { deleteChannel } from '../../../../redux/actions/channelActions';
+import { deleteChannel } from '../../../../../redux/actions/channelActions';
 
 class ChannelItem extends Component {
 	onDeleteClick = (id) => {
@@ -49,9 +49,8 @@ const Container = styled.div`
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	width: 200px;
+	width: 100%;
 	align-items: center;
-	padding: 5px;
 `;
 
 const Button = styled.button`

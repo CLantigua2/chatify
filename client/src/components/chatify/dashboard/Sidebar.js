@@ -1,10 +1,12 @@
 import React from 'react';
-import Channels from './channels/Channels';
 import styled from 'styled-components';
+import Channels from './sidebar/channels/Channels';
+import Heading from './sidebar/heading/Heading';
 
 function Sidebar() {
 	return (
 		<Container>
+			<Heading />
 			<Channels />
 		</Container>
 	);
@@ -14,9 +16,10 @@ export default Sidebar;
 
 const Container = styled.div`
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	padding: 20px;
 	background: ${(props) => props.theme.sidebar};
 	height: 100vh;
-	width: 10%;
+	width: 200px;
 	overflow: auto;
 `;
