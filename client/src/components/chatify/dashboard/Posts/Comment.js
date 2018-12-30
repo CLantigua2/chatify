@@ -13,6 +13,12 @@ class Comment extends Component {
 	componentDidMount() {
 		this.props.getChannel(this.props.match.params.id);
 	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.match.params !== this.props.match.params) {
+			this.props.getChannel(this.props.match.params.id);
+		}
+	}
 	render() {
 		const { channel, loading } = this.props.channel;
 		let channelContent;
