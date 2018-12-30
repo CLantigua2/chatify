@@ -13,7 +13,7 @@ class ChannelItem extends Component {
 		const { channel, auth } = this.props;
 		return (
 			<Container>
-				<StyledNavLink exact to={`/chatify/${channel.name}`} title={`${channel.purpose}`}>
+				<StyledNavLink exact to={`/chatify/${channel._id}`} title={`${channel.purpose}`}>
 					@{channel.name}
 				</StyledNavLink>
 				{channel.user === auth.user.id ? (
@@ -49,8 +49,15 @@ const Container = styled.div`
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	width: 100%;
+	width: 198px;
+	margin-right: 2px;
 	align-items: center;
+	margin-bottom: 10px;
+	a {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 `;
 
 const Button = styled.button`
@@ -72,6 +79,7 @@ const StyledNavLink = styled(NavLink)`
 color: ${(props) => props.theme.inactive};
 	font-weight: 2rem;
 	text-decoration: none;
+	font-size: 1.9rem;
 	&:hover {
 		color: ${(props) => props.theme.active}
 	}

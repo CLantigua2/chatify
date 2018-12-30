@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import { logoutUser, clearErrors } from '../../../../../redux/actions/authActions';
 import { addChannel } from '../../../../../redux/actions/channelActions';
+import { deleteAccount } from '../../../../../redux/actions/profileActions';
 import TextFieldGroup from '../../../../common/TextFieldGroup';
 
 class Heading extends Component {
@@ -35,6 +36,10 @@ class Heading extends Component {
 
 	logout = () => {
 		this.props.logoutUser();
+	};
+
+	removeAccount = () => {
+		this.props.deleteAccount();
 	};
 
 	createChannel = (e) => {
@@ -82,12 +87,15 @@ class Heading extends Component {
 	render() {
 		const { auth } = this.props;
 		const { errors, name, purpose } = this.state;
+		// split user name for sidebar
+		let nameArr = [];
+		nameArr = auth.user.name.split(' ');
 		return (
 			<div>
 				<Wrapper>
 					<Container>
 						<Image src={auth.user.avatar} alt={auth.user.name} />
-						<H4>{auth.user.name}</H4>
+						<H4>{nameArr[0]}</H4>
 					</Container>
 					<Dontmove>
 						<i onClick={this.showMenu} className="fas fa-cog" />
@@ -108,7 +116,7 @@ class Heading extends Component {
 									Logout
 								</li>
 								<hr />
-								<li>
+								<li onClick={() => this.removeAccount()}>
 									<i className="far fa-trash-alt" />
 									Delete Account
 								</li>
@@ -165,7 +173,8 @@ Heading.propTypes = {
 	auth: propTypes.object.isRequired,
 	errors: propTypes.object.isRequired,
 	logoutUser: propTypes.func.isRequired,
-	addChannel: propTypes.func.isRequired
+	addChannel: propTypes.func.isRequired,
+	deleteAccount: propTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -173,7 +182,7 @@ const mapStateToProps = (state) => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, { logoutUser, clearErrors, addChannel })(Heading);
+export default connect(mapStateToProps, { logoutUser, clearErrors, addChannel, deleteAccount })(Heading);
 
 const Form = styled.form`
 	position: absolute;
