@@ -8,7 +8,8 @@ import {
 	GET_CHANNEL,
 	CHANNEL_LOADING,
 	DELETE_CHANNEL,
-	DELETE_COMMENT
+	DELETE_COMMENT,
+	EDIT_COMMENT
 } from './types';
 
 // Add Post
@@ -117,6 +118,24 @@ export const addComment = (channelId, newComment) => (dispatch) => {
 		.then((res) =>
 			dispatch({
 				type: GET_CHANNEL,
+				payload: res.data
+			})
+		)
+		.catch((err) =>
+			dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			})
+		);
+};
+// Add Comment
+export const editComment = (channelId, commentId, textData) => (dispatch) => {
+	dispatch(clearErrors());
+	axios
+		.put(`/api/channels/comment/${channelId}/${commentId}`, textData)
+		.then((res) =>
+			dispatch({
+				type: EDIT_COMMENT,
 				payload: res.data
 			})
 		)

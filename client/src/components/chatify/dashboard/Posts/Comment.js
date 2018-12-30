@@ -34,20 +34,7 @@ class Comment extends Component {
 				</div>
 			);
 		}
-		return (
-			<div className="channel">
-				<div className="container">
-					<div className="row">
-						<div className="col-md-12">
-							<Link to="/feed" className="btn btn-light mb-3">
-								Back
-							</Link>
-							{channelContent}
-						</div>
-					</div>
-				</div>
-			</div>
-		);
+		return <div>{channelContent}</div>;
 	}
 }
 

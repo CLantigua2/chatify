@@ -118,11 +118,11 @@ router.post('/unlike/:id', passport.authenticate('jwt', { session: false }), (re
 	});
 });
 
-// @route   POST api/posts/comment/:id
+// @route   POST api/channels/comment/:id
 // @desc    Add comment to post
 // @access  Private
 router.post('/comment/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-	const { errors, isValid } = validatePostInput(req.body);
+	const { errors, isValid } = validateChannelInput(req.body);
 
 	// Check Validation
 	if (!isValid) {
@@ -131,7 +131,7 @@ router.post('/comment/:id', passport.authenticate('jwt', { session: false }), (r
 	}
 
 	Channel.findById(req.params.id)
-		.then((post) => {
+		.then((comment) => {
 			const newComment = {
 				text: req.body.text,
 				name: req.body.name,
@@ -140,15 +140,38 @@ router.post('/comment/:id', passport.authenticate('jwt', { session: false }), (r
 			};
 
 			// Add to comments array
-			post.comments.push(newComment);
+			comment.comments.push(newComment);
 
 			// Save
-			post.save().then((post) => res.json(post));
+			comment.save().then((post) => res.json(post));
 		})
 		.catch((err) => res.status(404).json({ postnotfound: 'No post found' }));
 });
 
-// @route   DELETE api/posts/comment/:id/:comment_id
+// @route   PUT api/channels/comment/:id
+// @desc    Add comment to post
+// @access  Private
+router.put('/comment/:id/:comment_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	const { errors, isValid } = validatePostInput(req.body);
+
+	// Check Validation
+	if (!isValid) {
+		// If any errors, send 400 with errors object
+		return res.status(400).json(errors);
+	}
+
+	const { comment_id } = req.params;
+	const textData = req.body;
+	Channel.findByIdAndUpdate(comment_id, textData).then((comment) => {
+		if (comment) {
+			res.status(200).json(comment);
+		} else {
+			res.status(404).json({ message: 'no message with that id exists' });
+		}
+	});
+});
+
+// @route   DELETE api/channel/comment/:id/:comment_id
 // @desc    Remove comment from post
 // @access  Private
 router.delete('/comment/:id/:comment_id', passport.authenticate('jwt', { session: false }), (req, res) => {

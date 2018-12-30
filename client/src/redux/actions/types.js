@@ -15,3 +15,4 @@ export const GET_CHANNEL = 'GET_CHANNEL';
 export const ADD_CHANNEL = 'ADD_CHANNEL';
 export const DELETE_CHANNEL = 'DELETE_CHANNEL';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';

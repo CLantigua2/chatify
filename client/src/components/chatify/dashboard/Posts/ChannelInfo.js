@@ -30,7 +30,14 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	width: 100%;
-	margin-left: 20px;
+	width: 89vw;
 	margin-bottom: 10px;
+	box-shadow: 0px 3px 10px -5px rgba(0, 0, 0, 0.75);
+	padding: 20px 0 20px 20px;
+	h3 {
+		margin-bottom: 15px;
+	}
+	h6 {
+		margin-left: 20px;
+	}
 `;

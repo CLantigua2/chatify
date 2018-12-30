@@ -4,7 +4,8 @@ import {
 	GET_CHANNEL,
 	DELETE_CHANNEL,
 	CHANNEL_LOADING,
-	DELETE_COMMENT
+	DELETE_COMMENT,
+	EDIT_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -41,6 +42,12 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				channels: state.channels.filter((channel) => channel._id !== action.payload)
+			};
+		case EDIT_COMMENT:
+			return {
+				...state,
+				channels: action.payload,
+				loading: false
 			};
 		case DELETE_COMMENT:
 			return {
