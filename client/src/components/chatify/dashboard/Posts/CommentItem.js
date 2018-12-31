@@ -12,6 +12,7 @@ class CommentItem extends Component {
 		this.state = {
 			text: this.props.comment.text,
 			isEditing: false,
+			mouseEntered: false,
 			errors: {}
 		};
 	}
@@ -25,14 +26,18 @@ class CommentItem extends Component {
 		this.props.deleteComment(channelId, commentId);
 	};
 
+	mouseOver = () => {
+		this.setState({ mouseEntered: !this.state.mouseEntered });
+	};
+
 	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 	render() {
 		const { comment, channelId, auth } = this.props;
-		const { isEditing, text, errors } = this.state;
+		const { isEditing, mouseEntered, text, errors } = this.state;
 		return (
-			<Container>
+			<Container onMouseDown={this.mouseOver}>
 				<div className="user">
 					<img className="avatar" src={comment.avatar} alt="comment user avatar" />
 					<div className="stats">
@@ -40,7 +45,7 @@ class CommentItem extends Component {
 						<p className="date">
 							posted <Moment format="DD/MM/YYYY">{comment.date}</Moment>
 						</p>
-						{comment.user === auth.user.id ? (
+						{comment.user === auth.user.id && mouseEntered === true ? (
 							<i onClick={this.editTrue} className="fas fa-pencil-alt edit-post" title="edit post" />
 						) : null}
 					</div>
@@ -58,7 +63,7 @@ class CommentItem extends Component {
 						/>
 					</Form>
 				)}
-				{comment.user === auth.user.id && !isEditing ? (
+				{comment.user === auth.user.id && !isEditing && mouseEntered ? (
 					<button
 						onClick={(e) => {
 							e.preventDefault();
@@ -107,6 +112,7 @@ const Form = styled.form`
 `;
 
 const Container = styled.div`
+	cursor: pointer;
 	width: 98%;
 	margin-left: 10px;
 	border-radius: 10px;
@@ -132,7 +138,7 @@ const Container = styled.div`
 			flex-direction: row;
 			align-items: center;
 			height: 50px;
-			width: 100%;
+			min-width: 100%;
 			justify-content: space-between;
 			.name {
 				font-weight: bold;
@@ -148,6 +154,7 @@ const Container = styled.div`
 			}
 			.edit-post {
 				cursor: pointer;
+				margin-left: 10px;
 				font-size: 1.4rem;
 				&:hover {
 					color: ${(props) => props.theme.active};
@@ -159,6 +166,8 @@ const Container = styled.div`
 		border-top: 1px dotted rgba(0, 0, 0, 0.2);
 		padding: 20px;
 		margin-left: 55px;
+		font-family: 'Sarabun', sans-serif;
+		font-size: 2rem;
 	}
 	.saveEdit {
 		font-size: 1.4rem;

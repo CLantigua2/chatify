@@ -76,7 +76,8 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { addComment })(CommentForm);
 
 const Form = styled.form`
-	border: 1px solid black;
+	box-shadow: 0px 6px 46px -11px rgba(0, 0, 0, 0.75);
+	border: 1px dotted rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
 	position: relative;
 	min-width: 97.5%;
@@ -90,6 +91,8 @@ const Form = styled.form`
 		width: 84.9vw;
 		border-radius: 10px 0 0 10px;
 		border: transparent;
+		font-size: 2.4rem;
+		padding: 10px;
 	}
 	.btn {
 		border-radius: 0 8px 8px 0;
