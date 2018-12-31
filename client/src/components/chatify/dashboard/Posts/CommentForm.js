@@ -79,7 +79,7 @@ const Form = styled.form`
 	border: 1px solid black;
 	border-radius: 10px;
 	position: relative;
-	width: 97.5%;
+	min-width: 97.5%;
 	display: flex;
 	flex-direction: right;
 	flex-wrap: nowrap;

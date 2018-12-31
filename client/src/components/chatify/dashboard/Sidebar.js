@@ -20,6 +20,6 @@ const Container = styled.div`
 	padding: 20px;
 	background: ${(props) => props.theme.sidebar};
 	height: 96.95vh;
-	width: 8%;
+	min-width: 8%;
 	overflow: auto;
 `;
