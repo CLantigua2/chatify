@@ -43,7 +43,7 @@ class CommentItem extends Component {
 					<div className="stats">
 						<p className="name">{comment.name}</p>
 						<p className="date">
-							posted <Moment format="DD/MM/YYYY">{comment.date}</Moment>
+							posted <Moment format="DD/MM/YYYY HH:mm">{comment.date}</Moment>
 						</p>
 						{comment.user === auth.user.id && mouseEntered === true ? (
 							<i onClick={this.editTrue} className="fas fa-pencil-alt edit-post" title="edit post" />
@@ -95,7 +95,12 @@ CommentItem.propTypes = {
 	comment: propTypes.object.isRequired,
 	channelId: propTypes.string.isRequired,
 	auth: propTypes.object.isRequired,
-	editComment: propTypes.func.isRequired
+	editComment: propTypes.func.isRequired,
+	editTrue: propTypes.func,
+	onDeleteClick: propTypes.func,
+	mouseOver: propTypes.func,
+	handleChange: propTypes.func,
+	errors: propTypes.object
 };
 
 const mapStateToProps = (state) => ({
