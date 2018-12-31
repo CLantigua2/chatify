@@ -47,7 +47,7 @@ class CommentForm extends Component {
 	render() {
 		const { errors, text } = this.state;
 		return (
-			<form onSubmit={this.onSubmit}>
+			<Form onSubmit={this.onSubmit}>
 				<TextAreaFieldGroup
 					placeholder="Reply to post"
 					name="text"
@@ -55,8 +55,8 @@ class CommentForm extends Component {
 					handleChange={this.handleChange}
 					error={errors.text}
 				/>
-				<button>Submit</button>
-			</form>
+				<button className="btn">Submit</button>
+			</Form>
 		);
 	}
 }
@@ -74,3 +74,27 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { addComment })(CommentForm);
+
+const Form = styled.form`
+	border: 1px solid black;
+	border-radius: 10px;
+	position: relative;
+	width: 97.5%;
+	display: flex;
+	flex-direction: right;
+	flex-wrap: nowrap;
+	margin-left: 10px;
+	margin-top: 20px;
+	padding: 2px;
+	textarea {
+		width: 84.9vw;
+		border-radius: 10px 0 0 10px;
+		border: transparent;
+	}
+	.btn {
+		border-radius: 0 8px 8px 0;
+		background: rgba(0, 177, 0, 0.6);
+		padding: 10px;
+		cursor: pointer;
+	}
+`;

@@ -113,7 +113,7 @@ const Container = styled.div`
 	box-shadow: 0px 6px 46px -11px rgba(0, 0, 0, 0.75);
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	margin-bottom: 10px;
-	height: 100%;
+	max-height: 100%;
 	padding: 15px;
 	.user {
 		display: flex;

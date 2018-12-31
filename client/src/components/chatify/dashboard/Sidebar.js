@@ -19,7 +19,7 @@ const Container = styled.div`
 	flex-direction: column;
 	padding: 20px;
 	background: ${(props) => props.theme.sidebar};
-	height: 100vh;
-	width: 200px;
+	height: 96.95vh;
+	width: 8%;
 	overflow: auto;
 `;

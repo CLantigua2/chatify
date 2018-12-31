@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import CommentItem from './CommentItem';
+import styled from 'styled-components';
 
 class CommentFeed extends Component {
 	render() {
 		const { comments, channelId } = this.props;
-		return comments.map((comment) => <CommentItem key={comment._id} comment={comment} channelId={channelId} />);
+		return (
+			<Container>
+				{comments.map((comment) => <CommentItem key={comment._id} comment={comment} channelId={channelId} />)}
+			</Container>
+		);
 	}
 }
 
@@ -15,3 +20,5 @@ CommentFeed.propTypes = {
 };
 
 export default CommentFeed;
+
+const Container = styled.div`height: 84vh;`;
