@@ -35,9 +35,13 @@ server.use(bodyParser.json());
 require('./config/passport')(passport);
 
 //////// Use Routes /////////////
+
 server.use('/api/users', users);
 server.use('/api/profile', profile);
 server.use('/api/channels', channels);
+server.get('/', (req, res) => {
+	res.status(200).json({ api: 'up' });
+});
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
