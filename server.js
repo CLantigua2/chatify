@@ -39,6 +39,8 @@ require('./config/passport')(passport);
 server.use('/api/users', users);
 server.use('/api/profile', profile);
 server.use('/api/channels', channels);
+
+/// server test route ///
 server.get('/', (req, res) => {
 	res.status(200).json({ api: 'up' });
 });
@@ -52,7 +54,5 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 	});
 }
-
-const port = process.env.PORT || 9000;
 
 module.exports = server;
