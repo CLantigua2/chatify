@@ -15,9 +15,9 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "test": "jest --watch --verbose"
   },
-      "jest": {
-        "testEnvironment": "node"
-      },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
