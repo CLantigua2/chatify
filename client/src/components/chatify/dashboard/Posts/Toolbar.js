@@ -31,6 +31,17 @@ class Toolbar extends Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+	auth: state.auth
+});
+
+Toolbar.propTypes = {
+	auth: propTypes.object.isRequired,
+	channel: propTypes.object.isRequired
+};
+
+export default connect(mapStateToProps)(Toolbar);
+
 const Toolbardiv = styled.header`
 	position: fixed;
 	top: 0;
@@ -67,30 +78,3 @@ const Toolbardiv = styled.header`
 		}
 	}
 `;
-
-const mapStateToProps = (state) => ({
-	auth: state.auth
-});
-
-Toolbar.propTypes = {
-	auth: propTypes.object.isRequired,
-	channel: propTypes.object.isRequired
-};
-
-export default connect(mapStateToProps)(Toolbar);
-
-// const Container = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// 	flex-wrap: nowrap;
-// 	width: 89vw;
-// 	margin-bottom: 10px;
-// 	box-shadow: 0px 3px 10px -5px rgba(0, 0, 0, 0.75);
-// 	padding: 20px 0 20px 20px;
-// 	h3 {
-// 		margin-bottom: 15px;
-// 	}
-// 	h6 {
-// 		margin-left: 20px;
-// 	}
-// `;

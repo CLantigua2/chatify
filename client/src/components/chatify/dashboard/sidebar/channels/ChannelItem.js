@@ -12,10 +12,10 @@ class ChannelItem extends Component {
 	render() {
 		const { channel, auth } = this.props;
 		return (
-			<Container>
-				<StyledNavLink to={`/chatify/${channel._id}`} title={`${channel.purpose}`}>
+			<li>
+				<NavLink active to={`/chatify/${channel._id}`} title={`${channel.purpose}`}>
 					@{channel.name}
-				</StyledNavLink>
+				</NavLink>
 				{channel.user === auth.user.id ? (
 					<Button
 						onClick={(e) => {
@@ -27,7 +27,7 @@ class ChannelItem extends Component {
 						<i className="fas fa-minus-square" title="delete channel" />
 					</Button>
 				) : null}
-			</Container>
+			</li>
 		);
 	}
 }
@@ -44,22 +44,6 @@ ChannelItem.propTypes = {
 
 export default connect(mapStateToProps, { deleteChannel })(ChannelItem);
 
-const Container = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	width: 198px;
-	margin-right: 2px;
-	align-items: center;
-	margin-bottom: 10px;
-	a {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-`;
-
 const Button = styled.button`
 	cursor: pointer;
 	padding: 0;
@@ -75,15 +59,15 @@ const Button = styled.button`
 	}
 `;
 
-const StyledNavLink = styled(NavLink)`
-color: ${(props) => props.theme.inactive};
-	font-weight: 2rem;
-	text-decoration: none;
-	font-size: 1.9rem;
-	&:hover {
-		color: ${(props) => props.theme.active}
-	}
-	&.active {
-		color: ${(props) => props.theme.active}
-	}
-`;
+// const StyledNavLink = styled(NavLink)`
+// color: ${(props) => props.theme.inactive};
+// 	font-weight: 2rem;
+// 	text-decoration: none;
+// 	font-size: 1.9rem;
+// 	&:hover {
+// 		color: ${(props) => props.theme.active}
+// 	}
+// 	&.active {
+// 		color: ${(props) => props.theme.active}
+// 	}
+// `;

@@ -30,6 +30,8 @@ const App = () => {
 						</Switch> */}
 						<Switch>
 							<PrivateRoute strict path="/chatify" component={SideDrawer} />
+						</Switch>
+						<Switch>
 							<PrivateRoute strict path="/chatify" component={Backdrop} />
 						</Switch>
 						<Switch>

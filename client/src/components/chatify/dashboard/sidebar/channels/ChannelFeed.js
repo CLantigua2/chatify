@@ -6,7 +6,11 @@ class ChannelFeed extends Component {
 	render() {
 		const { channels } = this.props;
 		// map through post item component in reverse to put new channels on the bottom
-		return channels.map((channel) => <ChannelItem key={channel._id} channel={channel} />).reverse();
+		return (
+			<ul className="channel-list">
+				{channels.map((channel) => <ChannelItem key={channel._id} channel={channel} />).reverse()}
+			</ul>
+		);
 	}
 }
 

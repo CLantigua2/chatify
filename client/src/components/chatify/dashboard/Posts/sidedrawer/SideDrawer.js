@@ -23,5 +23,26 @@ const Nav = styled.nav`
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 240px;
+	width: 70%;
+	max-width: 250px;
+	z-index: 200;
+	.channel-list {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		list-style: none;
+		li {
+			margin: 1rem 0;
+			a {
+				font-size: 2rem;
+				text-decoration: none;
+				list-style: none;
+				color: ${(props) => props.theme.inactive};
+			}
+			a:hover,
+			a:active {
+				color: ${(props) => props.theme.active};
+			}
+		}
+	}
 `;
