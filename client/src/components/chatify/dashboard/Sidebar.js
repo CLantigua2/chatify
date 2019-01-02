@@ -6,18 +6,17 @@ import Toolbar from './Posts/Toolbar';
 
 class Sidebar extends React.Component {
 	render() {
-		let sideDrawer;
-		let backdrop;
-
-		if (this.props.drawer === true) {
-			sideDrawer = <SideDrawer />;
-			backdrop = <Backdrop />;
-		}
+		const { drawer } = this.props;
+		const Drawer = (
+			<React.Fragment>
+				<SideDrawer />
+				<Backdrop />
+			</React.Fragment>
+		);
 		return (
 			<React.Fragment>
 				<Toolbar />
-				{sideDrawer}
-				{backdrop}
+				{drawer === true ? { Drawer } : null}
 			</React.Fragment>
 		);
 	}

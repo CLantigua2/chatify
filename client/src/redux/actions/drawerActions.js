@@ -1,12 +1,5 @@
-import { DRAWER_OPEN, DRAWER_CLOSE } from './types';
+import { TOGGLE_DRAWER } from './types';
 
-export const drawerOpen = () => {
-	return {
-		type: DRAWER_OPEN
-	};
-};
-export const drawerClose = () => {
-	return {
-		type: DRAWER_CLOSE
-	};
+export const toggleDrawer = () => {
+	return { type: TOGGLE_DRAWER };
 };

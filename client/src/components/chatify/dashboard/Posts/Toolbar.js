@@ -3,19 +3,16 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import ToggleButton from '../sidebar/sidedrawer/ToggleButton';
-import { drawerOpen, drawerClose } from '../../../../redux/actions/drawerActions';
+import { toggleDrawer } from '../../../../redux/actions/drawerActions';
 import Robot from '../../../../img/robot.png';
 
 class Toolbar extends Component {
 	drawerHandler = (e) => {
-		e.preventDefault();
-		console.log(this.props.drawer);
-		this.props.drawer ? this.props.drawerOpen() : this.props.drawerClose();
-	};
+		// e.preventDefault();
+		this.props.toggleDrawer();
 
-	static getDerivedStateFromProps(nextProps, prevState) {
-		if (nextProps.drawer !== this.props.drawer) return this.props.drawer;
-	}
+		console.log(this.props.drawer);
+	};
 
 	render() {
 		const { channel } = this.props;
@@ -51,11 +48,10 @@ Toolbar.propTypes = {
 	auth: propTypes.object.isRequired,
 	channel: propTypes.object.isRequired,
 	drawer: propTypes.object.isRequired,
-	drawerOpen: propTypes.func.isRequired,
-	drawerClose: propTypes.func.isRequired
+	toggleDrawer: propTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, { drawerOpen, drawerClose })(Toolbar);
+export default connect(mapStateToProps, { toggleDrawer })(Toolbar);
 
 const Toolbardiv = styled.header`
 	position: fixed;

@@ -17,5 +17,4 @@ export const DELETE_CHANNEL = 'DELETE_CHANNEL';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 // side drawer types
-export const DRAWER_OPEN = 'DRAWER_OPEN';
-export const DRAWER_CLOSE = 'DRAWER_CLOSE';
+export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';

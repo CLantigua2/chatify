@@ -1,4 +1,4 @@
-import { DRAWER_OPEN, DRAWER_CLOSE } from '../actions/types';
+import { TOGGLE_DRAWER } from '../actions/types';
 
 const initialState = {
 	drawer: false
@@ -6,15 +6,10 @@ const initialState = {
 
 export default function(state = initialState, action) {
 	switch (action.type) {
-		case DRAWER_OPEN:
+		case TOGGLE_DRAWER:
 			return {
 				...state,
-				drawer: true
-			};
-		case DRAWER_CLOSE:
-			return {
-				...state,
-				drawer: false
+				drawer: !state.drawer
 			};
 		default:
 			return state;
