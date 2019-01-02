@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import ToggleButton from './sidedrawer/ToggleButton';
+import Robot from '../../../../img/robot.png';
 
 class Toolbar extends Component {
 	render() {
@@ -12,7 +13,7 @@ class Toolbar extends Component {
 				<nav className="toolbar__navigation">
 					<ToggleButton />
 					<div className="toolbar__logo">
-						<a href="/">The logo</a>
+						<img className="logo" src={Robot} alt="" />
 					</div>
 					<div className="toolbar_nav_items">
 						{channel ? (
@@ -47,10 +48,10 @@ const Toolbardiv = styled.header`
 		padding: 0 1rem;
 		.toolbar__logo {
 			margin-left: 0.5rem;
-			a {
-				color: white;
-				text-decoration: none;
-				font-size: 2rem;
+			.logo {
+				height: 50px;
+				width: 70px;
+				border-radius: 50%;
 			}
 		}
 		.toolbar_nav_items {
