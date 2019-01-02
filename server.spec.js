@@ -28,10 +28,6 @@ describe('/api/users route', () => {
 	beforeAll(async () => {
 		await User.remove({});
 	});
-
-	// afterEach(async () => {
-	// 	await User.remove({});
-	// });
 	afterAll(async () => {
 		await mongoose.connection.close();
 	});

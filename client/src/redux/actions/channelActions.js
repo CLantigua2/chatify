@@ -13,10 +13,10 @@ import {
 } from './types';
 
 // Add Post
-export const addChannel = (channelData) => (dispatch) => {
-	dispatch(clearErrors());
-	axios
-		.post('/api/channels', channelData)
+export const addChannel = (error, channelData) => async (dispatch) => {
+	await dispatch(clearErrors());
+	await axios
+		.post('/channels', channelData)
 		.then((res) =>
 			dispatch({
 				type: ADD_CHANNEL,
@@ -38,7 +38,7 @@ export const getChannels = (load = true) => async (dispatch) => {
 		await dispatch(clearErrors());
 	}
 	await axios
-		.get('/api/channels')
+		.get('/channels')
 		.then((res) =>
 			dispatch({
 				type: GET_CHANNELS,
@@ -54,10 +54,10 @@ export const getChannels = (load = true) => async (dispatch) => {
 };
 
 // Get Post
-export const getChannel = (id) => (dispatch) => {
-	dispatch(setChannelLoading());
-	axios
-		.get(`/api/channels/${id}`)
+export const getChannel = (id) => async (dispatch) => {
+	await dispatch(setChannelLoading());
+	await axios
+		.get(`/channels/${id}`)
 		.then((res) =>
 			dispatch({
 				type: GET_CHANNEL,
@@ -73,9 +73,9 @@ export const getChannel = (id) => (dispatch) => {
 };
 
 // Delete Post
-export const deleteChannel = (id) => (dispatch) => {
-	axios
-		.delete(`/api/channels/${id}`)
+export const deleteChannel = (id) => async (dispatch) => {
+	await axios
+		.delete(`/channels/${id}`)
 		.then((res) =>
 			dispatch({
 				type: DELETE_CHANNEL,
@@ -91,8 +91,8 @@ export const deleteChannel = (id) => (dispatch) => {
 };
 
 // Add Like
-export const addLike = (id) => (dispatch) => {
-	axios.post(`/api/channels/like/${id}`).then((res) => dispatch(getChannels())).catch((err) =>
+export const addLike = (id) => async (dispatch) => {
+	await axios.post(`/channels/like/${id}`).then((res) => dispatch(getChannels())).catch((err) =>
 		dispatch({
 			type: GET_ERRORS,
 			payload: err.response.data
@@ -101,8 +101,8 @@ export const addLike = (id) => (dispatch) => {
 };
 
 // Remove Like
-export const removeLike = (id) => (dispatch) => {
-	axios.post(`/api/channels/unlike/${id}`).then((res) => dispatch(getChannels())).catch((err) =>
+export const removeLike = (id) => async (dispatch) => {
+	await axios.post(`/channels/unlike/${id}`).then((res) => dispatch(getChannels())).catch((err) =>
 		dispatch({
 			type: GET_ERRORS,
 			payload: err.response.data
@@ -111,10 +111,10 @@ export const removeLike = (id) => (dispatch) => {
 };
 
 // Add Comment
-export const addComment = (channelId, newComment) => (dispatch) => {
-	dispatch(clearErrors());
-	axios
-		.post(`/api/channels/comment/${channelId}`, newComment)
+export const addComment = (channelId, newComment) => async (dispatch) => {
+	await dispatch(clearErrors());
+	await axios
+		.post(`/channels/comment/${channelId}`, newComment)
 		.then((res) =>
 			dispatch({
 				type: GET_CHANNEL,
@@ -129,10 +129,10 @@ export const addComment = (channelId, newComment) => (dispatch) => {
 		);
 };
 // Add Comment
-export const editComment = (channelId, commentId, textData) => (dispatch) => {
-	dispatch(clearErrors());
-	axios
-		.put(`/api/channels/comment/${channelId}/${commentId}`, textData)
+export const editComment = (channelId, commentId, textData) => async (dispatch) => {
+	await dispatch(clearErrors());
+	await axios
+		.put(`/channels/comment/${channelId}/${commentId}`, textData)
 		.then((res) =>
 			dispatch({
 				type: EDIT_COMMENT,
@@ -148,9 +148,9 @@ export const editComment = (channelId, commentId, textData) => (dispatch) => {
 };
 
 // Delete Comment
-export const deleteComment = (channelId, commentId) => (dispatch) => {
-	axios
-		.delete(`/api/Channels/comment/${channelId}/${commentId}`)
+export const deleteComment = (channelId, commentId) => async (dispatch) => {
+	await axios
+		.delete(`/Channels/comment/${channelId}/${commentId}`)
 		.then((res) =>
 			dispatch({
 				type: DELETE_COMMENT,

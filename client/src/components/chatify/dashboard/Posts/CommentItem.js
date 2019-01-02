@@ -37,7 +37,7 @@ class CommentItem extends Component {
 		const { comment, channelId, auth } = this.props;
 		const { isEditing, mouseEntered, text, errors } = this.state;
 		return (
-			<Container onMouseDown={this.mouseOver}>
+			<Container onClick={this.mouseOver}>
 				<div className="user">
 					<img className="avatar" src={comment.avatar} alt="comment user avatar" />
 					<div className="stats">
@@ -78,9 +78,7 @@ class CommentItem extends Component {
 					<i
 						className="fas fa-check saveEdit"
 						onClick={(e) => {
-							e.stopPropagation();
 							e.preventDefault();
-
 							this.props.editComment(channelId, comment._id, text);
 						}}
 					/>
