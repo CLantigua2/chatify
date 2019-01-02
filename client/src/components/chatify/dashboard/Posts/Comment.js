@@ -7,7 +7,7 @@ import { getChannel } from '../../../../redux/actions/channelActions';
 import CommentForm from './CommentForm';
 import { withRouter } from 'react-router-dom';
 import CommentFeed from './CommentFeed';
-import ChannelInfo from './ChannelInfo';
+import Toolbar from './Toolbar';
 import styled from 'styled-components';
 
 class Comment extends Component {
@@ -25,11 +25,11 @@ class Comment extends Component {
 		let channelContent;
 
 		if (channel === null || loading || Object.keys(channel).length === 0) {
-			channelContent = <Loading />;
+			channelContent = <Toolbar />;
 		} else {
 			channelContent = (
 				<React.Fragment>
-					<ChannelInfo channel={channel} />
+					<Toolbar channel={channel} />
 					<Feed>
 						<div className="style-1">
 							<CommentFeed channelId={channel._id} comments={channel.comments} />
@@ -57,6 +57,7 @@ export default withRouter(connect(mapStateToProps, { getChannel })(Comment));
 const Container = styled.div`width: 92%;`;
 
 const Feed = styled.div`
+	margin-top: 85px;
 	max-height: 80%;
 	overflow-y: scroll;
 	::-webkit-scrollbar {

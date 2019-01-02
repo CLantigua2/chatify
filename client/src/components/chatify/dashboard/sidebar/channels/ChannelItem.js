@@ -13,7 +13,7 @@ class ChannelItem extends Component {
 		const { channel, auth } = this.props;
 		return (
 			<Container>
-				<StyledNavLink exact to={`/chatify/${channel._id}`} title={`${channel.purpose}`}>
+				<StyledNavLink to={`/chatify/${channel._id}`} title={`${channel.purpose}`}>
 					@{channel.name}
 				</StyledNavLink>
 				{channel.user === auth.user.id ? (

@@ -9,6 +9,13 @@ class Channels extends Component {
 	componentDidMount() {
 		this.props.getChannels();
 	}
+
+	shouldComponentUpdate(nextProps) {
+		if (nextProps.channel.channels !== this.props.channel.channels) {
+			return this.props.channel.channels;
+		}
+	}
+
 	render() {
 		const { channels, loading } = this.props.channel;
 		let channelContent;
