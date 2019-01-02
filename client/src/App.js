@@ -11,9 +11,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import PrivateRoute from './components/common/PrivateRoute';
 import Comment from './components/chatify/dashboard/Posts/Comment';
-// import Sidebar from './components/chatify/dashboard/Sidebar';
-import SideDrawer from './components/chatify/dashboard/Posts/sidedrawer/SideDrawer';
-import Backdrop from './components/common/Backdrop';
+import Sidebar from './components/chatify/dashboard/Sidebar';
 
 const App = () => {
 	return (
@@ -25,15 +23,10 @@ const App = () => {
 					<Route exact path="/register" component={Register} />
 					<Route exact path="/login" component={Login} />
 					<AppContainer>
-						{/* <Switch>
+						<Switch>
 							<PrivateRoute path="/chatify" component={Sidebar} />
-						</Switch> */}
-						<Switch>
-							<PrivateRoute strict path="/chatify" component={SideDrawer} />
 						</Switch>
-						<Switch>
-							<PrivateRoute strict path="/chatify" component={Backdrop} />
-						</Switch>
+
 						<Switch>
 							<PrivateRoute exact path="/chatify/:id" component={Comment} />
 						</Switch>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Channels from '../../sidebar/channels/Channels';
-import Heading from '../../sidebar/heading/Heading';
+import Channels from './channels/Channels';
+import Heading from './heading/Heading';
 
 const SideDrawer = () => {
 	return (

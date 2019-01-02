@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import { deleteChannel } from '../../../../../redux/actions/channelActions';
+import { deleteChannel } from '../../../../../../redux/actions/channelActions';
 
 class ChannelItem extends Component {
 	onDeleteClick = (id) => {

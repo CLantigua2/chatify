@@ -2,16 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import ToggleButton from './sidedrawer/ToggleButton';
+import ToggleButton from '../sidebar/sidedrawer/ToggleButton';
+import { drawerOpen, drawerClose } from '../../../../redux/actions/drawerActions';
 import Robot from '../../../../img/robot.png';
 
 class Toolbar extends Component {
+	drawerHandler = (e) => {
+		e.preventDefault();
+		console.log(this.props.drawer);
+		this.props.drawer ? this.props.drawerOpen() : this.props.drawerClose();
+	};
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (nextProps.drawer !== this.props.drawer) return this.props.drawer;
+	}
+
 	render() {
 		const { channel } = this.props;
 		return (
 			<Toolbardiv>
 				<nav className="toolbar__navigation">
-					<ToggleButton />
+					<ToggleButton drawerHandler={this.drawerHandler} />
 					<div className="toolbar__logo">
 						<img className="logo" src={Robot} alt="" />
 					</div>
@@ -32,15 +43,19 @@ class Toolbar extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	auth: state.auth
+	auth: state.auth,
+	drawer: state.drawer
 });
 
 Toolbar.propTypes = {
 	auth: propTypes.object.isRequired,
-	channel: propTypes.object.isRequired
+	channel: propTypes.object.isRequired,
+	drawer: propTypes.object.isRequired,
+	drawerOpen: propTypes.func.isRequired,
+	drawerClose: propTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Toolbar);
+export default connect(mapStateToProps, { drawerOpen, drawerClose })(Toolbar);
 
 const Toolbardiv = styled.header`
 	position: fixed;

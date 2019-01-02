@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
-import { logoutUser, clearErrors } from '../../../../../redux/actions/authActions';
-import { addChannel } from '../../../../../redux/actions/channelActions';
-import { deleteAccount } from '../../../../../redux/actions/profileActions';
-import TextFieldGroup from '../../../../common/TextFieldGroup';
+import { logoutUser, clearErrors } from '../../../../../../redux/actions/authActions';
+import { addChannel } from '../../../../../../redux/actions/channelActions';
+import { deleteAccount } from '../../../../../../redux/actions/profileActions';
+import TextFieldGroup from '../../../../../common/TextFieldGroup';
 
 class Heading extends Component {
 	constructor(props) {
@@ -97,7 +97,7 @@ class Heading extends Component {
 						<Image src={auth.user.avatar} alt={auth.user.name} />
 						<H4>{nameArr[0]}</H4>
 					</Container>
-					<Dontmove>
+					<div>
 						<i onClick={this.showMenu} className="fas fa-cog" />
 						{this.state.showMenu ? (
 							<ul ref={this.setWrapperRef}>
@@ -123,7 +123,7 @@ class Heading extends Component {
 								<hr />
 							</ul>
 						) : null}
-					</Dontmove>
+					</div>
 				</Wrapper>
 				<MakeChannel>
 					<p>Make a channel</p>
@@ -231,10 +231,10 @@ const Button = styled.button`
 	}
 `;
 
-const Dontmove = styled.div`
-	position: absolute;
-	left: 195px;
-`;
+// const Dontmove = styled.div`
+// 	position: absolute;
+// 	left: 195px;
+// `;
 
 const Wrapper = styled.div`
 	display: flex;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getChannels } from '../../../../../redux/actions/channelActions';
+import { getChannels } from '../../../../../../redux/actions/channelActions';
 import propTypes from 'prop-types';
 import ChannelFeed from './ChannelFeed';
-import Loading from '../../../../common/Loading';
+import Loading from '../../../../../common/Loading';
 
 class Channels extends Component {
 	componentDidMount() {

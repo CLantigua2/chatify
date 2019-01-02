@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ToggleButton = (props) => (
-	<Button className="toggle-button">
+	<Button className="toggle-button" onClick={props.drawerHandler}>
 		<div className="toggle-button__line" />
 		<div className="toggle-button__line" />
 		<div className="toggle-button__line" />
