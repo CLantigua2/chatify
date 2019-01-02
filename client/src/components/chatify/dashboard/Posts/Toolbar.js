@@ -46,7 +46,7 @@ const mapStateToProps = (state) => ({
 
 Toolbar.propTypes = {
 	auth: propTypes.object.isRequired,
-	channel: propTypes.object.isRequired,
+	channel: propTypes.object,
 	drawer: propTypes.object.isRequired,
 	toggleDrawer: propTypes.func.isRequired
 };
@@ -65,11 +65,12 @@ const Toolbardiv = styled.header`
 		flex-direction: row;
 		align-items: center;
 		height: 100%;
-		width: 55%;
+		width: 100%;
+		max-width: 60%;
 		justify-content: space-between;
-		padding: 0 1rem;
+		padding-left: 1rem;
 		.toolbar__logo {
-			margin-left: 0.5rem;
+			margin: 0;
 			.logo {
 				height: 50px;
 				width: 70px;
@@ -78,7 +79,7 @@ const Toolbardiv = styled.header`
 		}
 		.toolbar_nav_items {
 			ul {
-				padding: 10px;
+				padding: 10px 0;
 				h3 {
 					color: ${(props) => props.theme.active};
 				}

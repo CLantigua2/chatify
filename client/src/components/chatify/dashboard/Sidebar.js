@@ -6,7 +6,7 @@ import Toolbar from './Posts/Toolbar';
 
 class Sidebar extends React.Component {
 	render() {
-		const { drawer } = this.props;
+		const { drawer } = this.props.drawer;
 		const Drawer = (
 			<React.Fragment>
 				<SideDrawer />
@@ -16,7 +16,7 @@ class Sidebar extends React.Component {
 		return (
 			<React.Fragment>
 				<Toolbar />
-				{drawer === true ? { Drawer } : null}
+				{drawer ? null : Drawer}
 			</React.Fragment>
 		);
 	}

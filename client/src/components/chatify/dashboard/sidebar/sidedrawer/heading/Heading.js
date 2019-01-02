@@ -98,9 +98,9 @@ class Heading extends Component {
 						<H4>{nameArr[0]}</H4>
 					</Container>
 					<div>
-						<i onClick={this.showMenu} className="fas fa-cog" />
+						<i onClick={this.showMenu} className="fas fa-cog cog" />
 						{this.state.showMenu ? (
-							<ul ref={this.setWrapperRef}>
+							<ul className="settings" ref={this.setWrapperRef}>
 								<li>
 									<i className="fas fa-user-cog" />
 									Edit Profile
@@ -233,32 +233,43 @@ const Button = styled.button`
 
 // const Dontmove = styled.div`
 // 	position: absolute;
-// 	left: 195px;
+// 	.cog {
+// 		left: 229px;
+// 		.settings {
+// 			position: absolute;
+// 			left: 229px;
+// 		}
+// 	}
 // `;
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	i {
+	width: 250px;
+	.cog {
+		position: absolute;
 		font-size: 2rem;
 		color: ${(props) => props.theme.inactive};
 		cursor: pointer;
 		transition: 0.5s ease-in-out;
 		position: relative;
-		left: 5px;
 		&:hover {
 			color: ${(props) => props.theme.active};
 			transform: rotate(360deg);
 		}
 	}
-	ul {
+	.settings {
+		z-index: 200;
+		position: absolute;
+		display: flex;
+		flex-direction: column;
 		margin-top: 20px;
 		box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.75);
 		background: #ffffff;
-		width: 153px;
+		width: 165px;
 		height: 278px;
-		padding: 10px;
+		padding: 14px;
 		border: 1px solid slategray;
 		border-radius: 4px;
 		hr {
@@ -271,6 +282,7 @@ const Wrapper = styled.div`
 		li {
 			color: ${(props) => props.theme.inactive};
 			cursor: pointer;
+			display: flex;
 			transition: 0.4s ease-in-out;
 			margin-bottom: 22px;
 			margin-top: 22px;
