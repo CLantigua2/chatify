@@ -29,7 +29,7 @@ class Comment extends Component {
 			<Container>
 				<Toolbar channel={channel} />
 				<Feed>
-					<div className="style-1">
+					<div className="Comment">
 						{channel === null || loading || Object.keys(channel).length === 0 ? (
 							<Loading />
 						) : (
