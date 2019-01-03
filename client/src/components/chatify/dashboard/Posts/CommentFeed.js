@@ -12,7 +12,7 @@ class CommentFeed extends Component {
 				{comments.length === 0 ? (
 					<Wrapper>
 						<div className="user">
-							<img className="avatar" src={Robot} alt="Chatty-bot" />
+							<img className="avatar" src={Robot} alt="your friendly every day Chatty-bot" />
 							<div className="stats">
 								<p className="name">Chatty-bot</p>
 							</div>

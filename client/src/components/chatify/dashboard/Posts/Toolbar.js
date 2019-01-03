@@ -13,11 +13,11 @@ class Toolbar extends Component {
 	};
 
 	render() {
-		const { channel } = this.props;
+		const { channel, drawer } = this.props;
 		return (
 			<Toolbardiv>
 				<nav className="toolbar__navigation">
-					<ToggleButton drawerHandler={this.drawerHandler} />
+					<ToggleButton drawer={drawer} drawerHandler={this.drawerHandler} />
 					<div className="toolbar__logo">
 						<img className="logo" src={Robot} alt="" />
 					</div>

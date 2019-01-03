@@ -7,7 +7,7 @@ class ToggleButton extends React.Component {
 		super(props);
 
 		this.state = {
-			isActive: true
+			isActive: this.props.drawer
 		};
 	}
 
