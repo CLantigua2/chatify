@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { deleteChannel } from '../../../../../../redux/actions/channelActions';
+import { toggleDrawer } from '../../../../../../redux/actions/drawerActions';
 
 class ChannelItem extends Component {
 	onDeleteClick = (id) => {
@@ -11,7 +12,7 @@ class ChannelItem extends Component {
 	};
 
 	render() {
-		const { channel, auth } = this.props;
+		const { channel, auth, toggleDrawer } = this.props;
 		const atSign = '@';
 		return (
 			<li>
@@ -20,6 +21,7 @@ class ChannelItem extends Component {
 					title={`${channel.purpose} `}
 					exact
 					activeClassName="active"
+					onClick={toggleDrawer}
 				>
 					{atSign.concat(channel.name)}
 				</StyledNavLink>
@@ -40,16 +42,19 @@ class ChannelItem extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	auth: state.auth
+	auth: state.auth,
+	drawer: state.drawer
 });
 
 ChannelItem.propTypes = {
 	deleteChannel: propTypes.func.isRequired,
 	auth: propTypes.object.isRequired,
-	channel: propTypes.object.isRequired
+	channel: propTypes.object.isRequired,
+	drawer: propTypes.object.isRequired,
+	toggleDrawer: propTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, { deleteChannel })(ChannelItem);
+export default connect(mapStateToProps, { deleteChannel, toggleDrawer })(ChannelItem);
 
 const Button = styled.button`
 	cursor: pointer;

@@ -22,24 +22,25 @@ class Comment extends Component {
 	}
 	render() {
 		const { channel, loading } = this.props.channel;
-		let channelContent;
-
-		if (channel === null || loading || Object.keys(channel).length === 0) {
-			channelContent = <Toolbar />;
-		} else {
-			channelContent = (
-				<React.Fragment>
-					<Toolbar channel={channel} />
-					<Feed>
-						<div className="style-1">
+		return (
+			<Container>
+				<Toolbar channel={channel} />
+				<Feed>
+					<div className="style-1">
+						{channel === null || loading || Object.keys(channel).length === 0 ? (
+							<Loading />
+						) : (
 							<CommentFeed channelId={channel._id} comments={channel.comments} />
-						</div>
-					</Feed>
+						)}
+					</div>
+				</Feed>
+				{channel === null || loading || Object.keys(channel).length === 0 ? (
+					<Loading />
+				) : (
 					<CommentForm channelId={channel._id} />
-				</React.Fragment>
-			);
-		}
-		return <Container>{channelContent}</Container>;
+				)}
+			</Container>
+		);
 	}
 }
 

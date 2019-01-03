@@ -14,7 +14,7 @@ class Channels extends Component {
 		if (nextProps.channel.channels !== this.props.channel.channels) {
 			return this.props.channel.channels;
 		} else {
-			return false;
+			return <Loading />;
 		}
 	}
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 
 const ToggleButton = (props) => (
 	<Button className="toggle-button" onClick={props.drawerHandler}>
@@ -10,6 +11,10 @@ const ToggleButton = (props) => (
 );
 
 export default ToggleButton;
+
+ToggleButton.propTypes = {
+	drawerHandler: propTypes.func.isRequired
+};
 
 const Button = styled.button`
 	display: flex;
