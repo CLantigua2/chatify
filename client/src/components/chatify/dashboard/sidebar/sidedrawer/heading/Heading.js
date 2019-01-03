@@ -52,9 +52,12 @@ class Heading extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		const { name, purpose } = this.state;
+		const { name, purpose, errors } = this.state;
 		const newChannel = { name, purpose };
 		this.props.addChannel(newChannel);
+		if (errors.length === 0) {
+			this.setState({ channelOptions: false });
+		}
 	};
 
 	handleChange = (e) => {
@@ -144,7 +147,6 @@ class Heading extends Component {
 									value={name.toLowerCase().replace(' ', '_')}
 									handleChange={this.handleChange}
 									error={errors.name}
-									autoComplete="name"
 								/>
 							</div>
 							<div className="separator">
@@ -155,7 +157,6 @@ class Heading extends Component {
 									type="text"
 									value={purpose}
 									handleChange={this.handleChange}
-									autoComplete="purpose"
 								/>
 							</div>
 							<Button type="submit">

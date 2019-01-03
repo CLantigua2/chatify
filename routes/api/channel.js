@@ -47,11 +47,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 		return res.status(400).json(errors);
 	}
 
-	const newChannel = new Channel({
-		name: req.body.name,
-		purpose: req.body.purpose,
-		user: req.user.id
-	});
+	const { name, purpose } = req.body;
+	const { user } = req.user.id;
+	const newChannel = new Channel({ name, purpose, user });
 	newChannel.save().then((channel) => res.json(channel));
 });
 

@@ -29,7 +29,7 @@ class Toolbar extends Component {
 							</ul>
 						) : (
 							<ul>
-								<h3>Cha||ify</h3>
+								<h3>Chat||fy</h3>
 							</ul>
 						)}
 					</div>

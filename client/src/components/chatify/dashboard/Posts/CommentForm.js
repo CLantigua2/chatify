@@ -47,8 +47,9 @@ class CommentForm extends Component {
 	render() {
 		const { errors, text } = this.state;
 		return (
-			<Form onSubmit={this.onSubmit}>
+			<Form onSubmit={this.onSubmit} className="comment-form">
 				<TextAreaFieldGroup
+					className="comment-input"
 					placeholder="Reply to post"
 					name="text"
 					value={text}
@@ -87,12 +88,15 @@ const Form = styled.form`
 	flex-direction: right;
 	flex-wrap: nowrap;
 	margin-top: 20px;
-	textarea {
-		width: 84.9vw;
-		border-radius: 10px 0 0 10px;
-		border: transparent;
-		font-size: 2.4rem;
-		padding: 10px;
+	.form-group {
+		width: 100%;
+		textarea {
+			width: 100%;
+			border-radius: 10px 0 0 10px;
+			border: transparent;
+			font-size: 2.4rem;
+			padding: 10px;
+		}
 	}
 	.btn {
 		border-radius: 0 8px 8px 0;

@@ -116,13 +116,15 @@ const Form = styled.form`
 
 const Container = styled.div`
 	cursor: pointer;
-	width: 98%;
-	margin-left: 10px;
+	max-width: 2368px;
+	margin-left: 0px;
 	border-radius: 10px;
 	box-shadow: 0px 6px 46px -11px rgba(0, 0, 0, 0.75);
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	margin-bottom: 10px;
-	max-height: 100%;
+	overflow: auto;
+	max-height: 500px;
+	min-height: 226px;
 	padding: 15px;
 	.user {
 		display: flex;

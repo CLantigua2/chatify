@@ -27,7 +27,7 @@ const Nav = styled.nav`
 	max-width: 250px;
 	z-index: 200;
 	transition: 0.3s ease-in-out;
-	transform: ${({ show }) => (show ? 'translateX(-235px)' : 'translateX(0)')};
+	transform: ${({ show }) => (show ? 'translateX(-237px)' : 'translateX(0)')};
 
 	.channel-list {
 		display: flex;

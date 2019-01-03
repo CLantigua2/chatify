@@ -1,39 +1,40 @@
 import React from 'react';
-import styled from 'styled-components';
+import { HamburgerArrow } from 'react-animated-burgers';
 import propTypes from 'prop-types';
 
-const ToggleButton = (props) => (
-	<Button className="toggle-button" onClick={props.drawerHandler}>
-		<div className="toggle-button__line" />
-		<div className="toggle-button__line" />
-		<div className="toggle-button__line" />
-	</Button>
-);
+class ToggleButton extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isActive: true
+		};
+	}
+
+	toggleButton = () => {
+		this.setState({
+			isActive: !this.state.isActive
+		});
+	};
+
+	render() {
+		return (
+			<div onClick={this.props.drawerHandler}>
+				<HamburgerArrow
+					isActive={this.state.isActive}
+					toggleButton={this.toggleButton}
+					buttonColor="#000E0F"
+					barColor="#32E2EC"
+					onClick={this.props.drawerHandler}
+					buttonWidth={25}
+				/>
+			</div>
+		);
+	}
+}
 
 export default ToggleButton;
 
 ToggleButton.propTypes = {
 	drawerHandler: propTypes.func.isRequired
 };
-
-const Button = styled.button`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	height: 24px;
-	width: 36px;
-	background: transparent;
-	border: none;
-	padding: 0;
-	cursor: pointer;
-	&:focus {
-		outline: none;
-		border: none;
-	}
-
-	.toggle-button__line {
-		width: 30px;
-		height: 2px;
-		background: white;
-	}
-`;

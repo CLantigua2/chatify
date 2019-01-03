@@ -13,7 +13,7 @@ import {
 } from './types';
 
 // Add Post
-export const addChannel = (error, channelData) => async (dispatch) => {
+export const addChannel = (channelData) => async (dispatch) => {
 	await dispatch(clearErrors());
 	await axios
 		.post('/channels', channelData)
@@ -34,7 +34,6 @@ export const addChannel = (error, channelData) => async (dispatch) => {
 // Get Posts
 export const getChannels = (load = true) => async (dispatch) => {
 	if (load) {
-		await dispatch(setChannelLoading);
 		await dispatch(clearErrors());
 	}
 	await axios
