@@ -12,6 +12,7 @@ import Login from './components/auth/Login';
 import PrivateRoute from './components/common/PrivateRoute';
 import Comment from './components/chatify/dashboard/Posts/Comment';
 import Sidebar from './components/chatify/dashboard/Sidebar';
+import ChatifyLanding from './components/landing/ChatifyLanding';
 
 const App = () => {
 	return (
@@ -26,7 +27,9 @@ const App = () => {
 						<Switch>
 							<PrivateRoute strict path="/chatify" component={Sidebar} />
 						</Switch>
-
+						<Switch>
+							<PrivateRoute exact path="/chatify" component={ChatifyLanding} />
+						</Switch>
 						<Switch>
 							<PrivateRoute exact path="/chatify/:id" component={Comment} />
 						</Switch>
