@@ -6,29 +6,26 @@ const ProfileSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'users'
 	},
-	handle: {
+	username: {
 		type: String,
 		required: true,
-		max: 40
+		max: 15
 	},
-	theme: {
-		sidebar: {
-			type: String,
-			default: '#000E0F'
-		},
-		active: {
-			type: String,
-			default: '#34EAF5'
-		},
-		inactive: {
-			type: String,
-			default: '#1B8389'
-		},
-		header: {
-			type: String,
-			default: '#FFFFFF'
+	status: {
+		type: String,
+		max: 50
+	},
+	location: [
+		{
+			city: {
+				type: String,
+			},
+			state: {
+				type: String,
+				max: 2
+			}
 		}
-	},
+	],
 	date: {
 		type: Date,
 		default: Date.now

@@ -4,27 +4,20 @@ const isEmpty = require('./is-empty');
 module.exports = function validateProfileInput(data) {
 	let errors = {};
 
-	data.handle = !isEmpty(data.handle) ? data.handle : '';
+	data.username = !isEmpty(data.username) ? data.username : '';
+	data.status = !isEmpty(data.status) ? data.status : '';
+	data.location.city = !isEmpty(data.location.city) ? data.location.city : '';
+	data.location.state = !isEmpty(data.location.state) ? data.location.state : '';
 
-	if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
-		errors.handle = 'Handle must be between 2 and 40 characters';
+	if (!Validator.isLength(data.username, { min: 2, max: 15 })) {
+		errors.username = 'Username must be between 2 and 15 characters';
+	}
+	if (!Validator.isLength(data.username, { min: 2, max: 2 })) {
+		errors.username = 'Username must be 2 characters';
 	}
 
-	if (Validator.isEmpty(data.handle)) {
-		errors.handle = 'Profile handle is required';
-	}
-
-	if (!Validator.isLength(data.sidebar, { min: 7, max: 7 })) {
-		errors.handle = 'Please provie a 7 character Hex Code ex. #FF0000';
-	}
-	if (!Validator.isLength(data.active, { min: 7, max: 7 })) {
-		errors.handle = 'Please provie a 7 character Hex Code ex. #FF0000';
-	}
-	if (!Validator.isLength(data.inactive, { min: 7, max: 7 })) {
-		errors.handle = 'Please provie 7 character Hex Code ex. #FF0000';
-	}
-	if (!Validator.isLength(data.header, { min: 7, max: 7 })) {
-		errors.handle = 'Please provie 7 character Hex Code ex. #FF0000';
+	if (Validator.isEmpty(data.username)) {
+		errors.username = 'Profile username is required';
 	}
 
 	return {

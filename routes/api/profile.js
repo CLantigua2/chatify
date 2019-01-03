@@ -23,7 +23,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 	Profile.findOne({ user: req.user.id })
 		// populate fields from users into response
-		.populate('user', [ 'name', 'avatar' ])
+		.populate('user', ['name', 'avatar'])
 		.then((profile) => {
 			if (!profile) {
 				errors.noprofile = 'There is no profile for this user';
@@ -41,7 +41,7 @@ router.get('/all', (req, res) => {
 	const errors = {};
 
 	Profile.find()
-		.populate('user', [ 'name', 'avatar' ])
+		.populate('user', ['name', 'avatar'])
 		.then((profiles) => {
 			if (!profiles) {
 				errors.noprofile = 'There are no profiles';
@@ -53,15 +53,15 @@ router.get('/all', (req, res) => {
 		.catch((err) => res.status(404).json({ profile: 'There are no profiles' }));
 });
 
-// @route   GET api/profile/handle/:handle
-// @desc    Get profile by handle
+// @route   GET api/profile/username/:username
+// @desc    Get profile by username
 // @access  Public
 
-router.get('/handle/:handle', (req, res) => {
+router.get('/username/:username', (req, res) => {
 	const errors = {};
 
-	Profile.findOne({ handle: req.params.handle })
-		.populate('user', [ 'name', 'avatar' ])
+	Profile.findOne({ username: req.params.username })
+		.populate('user', ['name', 'avatar'])
 		.then((profile) => {
 			if (!profile) {
 				errors.noprofile = 'There is no profile for this user';
@@ -76,12 +76,11 @@ router.get('/handle/:handle', (req, res) => {
 // @route   GET api/profile/user/:user_id
 // @desc    Get profile by user ID
 // @access  Public
-
 router.get('/user/:user_id', (req, res) => {
 	const errors = {};
 
 	Profile.findOne({ user: req.params.user_id })
-		.populate('user', [ 'name', 'avatar' ])
+		.populate('user', ['name', 'avatar'])
 		.then((profile) => {
 			if (!profile) {
 				errors.noprofile = 'There is no profile for this user';
@@ -108,13 +107,11 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 	// Get fields
 	const profileFields = {};
 	profileFields.user = req.user.id;
-
+	if (req.body.username) profileFields.username = req.body.username;
+	if (req.body.status) profileFields.status = req.body.status;
 	// Social
-	profileFields.theme = {};
-	if (req.body.sidebar) profileFields.theme.sidebar = req.body.sidebar;
-	if (req.body.active) profileFields.theme.active = req.body.active;
-	if (req.body.inactive) profileFields.theme.inactive = req.body.inactive;
-	if (req.body.header) profileFields.theme.header = req.body.header;
+	if (req.body.city) profileFields.location.city = req.body.city;
+	if (req.body.state) profileFields.location.state = req.body.state;
 
 	Profile.findOne({ user: req.user.id }).then((profile) => {
 		if (profile) {
@@ -125,10 +122,10 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 		} else {
 			// Create
 
-			// Check if handle exists
-			Profile.findOne({ handle: profileFields.handle }).then((profile) => {
+			// Check if username exists
+			Profile.findOne({ username: profileFields.username }).then((profile) => {
 				if (profile) {
-					errors.handle = 'That handle already exists';
+					errors.username = 'That username already exists';
 					res.status(400).json(errors);
 				}
 

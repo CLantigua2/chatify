@@ -90,4 +90,8 @@ p, a, li {
   font-size: 1.6rem
 }
 
+button {
+	outline: none;
+}
+
 `;
