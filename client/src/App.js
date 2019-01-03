@@ -24,7 +24,7 @@ const App = () => {
 					<Route exact path="/login" component={Login} />
 					<AppContainer>
 						<Switch>
-							<PrivateRoute path="/chatify" component={Sidebar} />
+							<PrivateRoute strict path="/chatify" component={Sidebar} />
 						</Switch>
 
 						<Switch>
