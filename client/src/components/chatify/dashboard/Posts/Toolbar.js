@@ -8,10 +8,8 @@ import Robot from '../../../../img/robot.png';
 
 class Toolbar extends Component {
 	drawerHandler = (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		this.props.toggleDrawer();
-
-		console.log(this.props.drawer);
 	};
 
 	render() {
@@ -30,7 +28,9 @@ class Toolbar extends Component {
 								<h6>{`${channel.purpose}`}</h6>
 							</ul>
 						) : (
-							<h3>Select a Channel</h3>
+							<ul>
+								<h3>Cha||ify</h3>
+							</ul>
 						)}
 					</div>
 				</nav>

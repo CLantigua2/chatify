@@ -9,13 +9,20 @@ class ChannelItem extends Component {
 	onDeleteClick = (id) => {
 		this.props.deleteChannel(id);
 	};
+
 	render() {
 		const { channel, auth } = this.props;
+		const atSign = '@';
 		return (
 			<li>
-				<NavLink active to={`/chatify/${channel._id}`} title={`${channel.purpose}`}>
-					@{channel.name}
-				</NavLink>
+				<StyledNavLink
+					to={`/chatify/${channel._id}`}
+					title={`${channel.purpose} `}
+					exact
+					activeClassName="active"
+				>
+					{atSign.concat(channel.name)}
+				</StyledNavLink>
 				{channel.user === auth.user.id ? (
 					<Button
 						onClick={(e) => {
@@ -59,15 +66,15 @@ const Button = styled.button`
 	}
 `;
 
-// const StyledNavLink = styled(NavLink)`
-// color: ${(props) => props.theme.inactive};
-// 	font-weight: 2rem;
-// 	text-decoration: none;
-// 	font-size: 1.9rem;
-// 	&:hover {
-// 		color: ${(props) => props.theme.active}
-// 	}
-// 	&.active {
-// 		color: ${(props) => props.theme.active}
-// 	}
-// `;
+const StyledNavLink = styled(NavLink)`
+  color: ${(props) => props.theme.inactive};
+	font-weight: 2rem;
+	text-decoration: none;
+	font-size: 1.9rem;
+	&:hover {
+		color: ${(props) => props.theme.active}
+	}
+	a.active {
+		color: ${(props) => props.theme.active}
+	}
+`;

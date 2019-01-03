@@ -33,16 +33,6 @@ const Nav = styled.nav`
 		list-style: none;
 		li {
 			margin: 1rem 0;
-			a {
-				font-size: 2rem;
-				text-decoration: none;
-				list-style: none;
-				color: ${(props) => props.theme.inactive};
-			}
-			a:hover,
-			a:active {
-				color: ${(props) => props.theme.active};
-			}
 		}
 	}
 `;

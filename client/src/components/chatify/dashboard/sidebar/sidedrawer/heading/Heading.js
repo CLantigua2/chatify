@@ -231,17 +231,6 @@ const Button = styled.button`
 	}
 `;
 
-// const Dontmove = styled.div`
-// 	position: absolute;
-// 	.cog {
-// 		left: 229px;
-// 		.settings {
-// 			position: absolute;
-// 			left: 229px;
-// 		}
-// 	}
-// `;
-
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
