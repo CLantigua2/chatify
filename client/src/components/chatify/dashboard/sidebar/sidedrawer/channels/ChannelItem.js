@@ -16,13 +16,7 @@ class ChannelItem extends Component {
 		const atSign = '@';
 		return (
 			<li>
-				<StyledNavLink
-					to={`/chatify/${channel._id}`}
-					title={`${channel.purpose} `}
-					exact
-					activeClassName="active"
-					onClick={toggleDrawer}
-				>
+				<StyledNavLink to={`/chatify/${channel._id}`} title={`${channel.purpose} `} onClick={toggleDrawer}>
 					{atSign.concat(channel.name)}
 				</StyledNavLink>
 				{channel.user === auth.user.id ? (
@@ -79,7 +73,7 @@ const StyledNavLink = styled(NavLink)`
 	&:hover {
 		color: ${(props) => props.theme.active}
 	}
-	a.active {
+	&:active {
 		color: ${(props) => props.theme.active}
 	}
 `;

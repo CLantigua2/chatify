@@ -15,11 +15,6 @@ class Comment extends Component {
 		this.props.getChannel(this.props.match.params.id);
 	}
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.match.params !== this.props.match.params) {
-			this.props.getChannel(this.props.match.params.id);
-		}
-	}
 	render() {
 		const { channel, loading } = this.props.channel;
 		return (
@@ -55,7 +50,12 @@ Comment.propTypes = {
 
 export default withRouter(connect(mapStateToProps, { getChannel })(Comment));
 
-const Container = styled.div`width: 92%;`;
+const Container = styled.div`
+	width: 100%;
+	max-width: 2454px;
+	margin-left: 71px;
+	min-width: 500px;
+`;
 
 const Feed = styled.div`
 	margin-top: 85px;

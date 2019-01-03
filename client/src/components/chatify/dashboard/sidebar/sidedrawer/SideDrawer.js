@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Channels from './channels/Channels';
 import Heading from './heading/Heading';
 
-const SideDrawer = () => {
+const SideDrawer = (props) => {
 	return (
-		<Nav className="side-drawer">
+		<Nav show={props.show}>
 			<Heading />
 			<Channels />
 		</Nav>
@@ -26,6 +26,9 @@ const Nav = styled.nav`
 	width: 70%;
 	max-width: 250px;
 	z-index: 200;
+	transition: 0.3s ease-in-out;
+	transform: ${({ show }) => (show ? 'translateX(-235px)' : 'translateX(0)')};
+
 	.channel-list {
 		display: flex;
 		flex-direction: column;
