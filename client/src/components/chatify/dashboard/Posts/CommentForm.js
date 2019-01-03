@@ -80,13 +80,13 @@ const Form = styled.form`
 	border: 1px dotted rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
 	position: relative;
-	min-width: 97.5%;
+	width: 100%;
+	max-width: 2439px;
+	min-width: 500px;
 	display: flex;
 	flex-direction: right;
 	flex-wrap: nowrap;
-	margin-left: 10px;
 	margin-top: 20px;
-	padding: 2px;
 	textarea {
 		width: 84.9vw;
 		border-radius: 10px 0 0 10px;
