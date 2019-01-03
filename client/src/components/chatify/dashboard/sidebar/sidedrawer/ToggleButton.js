@@ -21,8 +21,9 @@ const Button = styled.button`
 	border: none;
 	padding: 0;
 	cursor: pointer;
-	.toggle-button:focus {
+	&:focus {
 		outline: none;
+		border: none;
 	}
 
 	.toggle-button__line {

@@ -16,6 +16,7 @@ class Sidebar extends React.Component {
 		return (
 			<React.Fragment>
 				<Toolbar />
+
 				{drawer ? null : Drawer}
 			</React.Fragment>
 		);
