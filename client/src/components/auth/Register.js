@@ -39,7 +39,7 @@ class Register extends React.Component {
 
 	componentDidMount() {
 		if (this.props.auth.isAuthenticated) {
-			this.props.history.push('/chatify');
+			this.props.history.push('/chatify/home');
 		}
 		this.props.clearErrors();
 	}

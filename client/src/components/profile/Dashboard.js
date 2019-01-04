@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getCurrentProfile, deleteAccount } from '../../redux/actions/profileActions';
 import Loading from '../common/Loading';
-import CreateProfile from './CreateProfile';
-import Profile from './Profile';
+import Fade from 'react-reveal';
 import { withRouter } from 'react-router-dom';
+import bg from '../../img/createprofilebg.jpg';
+import styled from 'styled-components';
 
 class Dashboard extends Component {
 	componentDidMount() {
@@ -27,18 +28,19 @@ class Dashboard extends Component {
 			// check if logged in user has profile data
 			if (Object.keys(profile).length > 0) {
 				dashboardContent = (
-					<div>
-						<p className="lead text-muted">
-							Welcome <Link to={`/profile/${profile.username}`}>{user.name}</Link>
-						</p>
-						<Profile />
-						<button onClick={this.onDeleteClick} className="btn btn-danger">
-							Delete My Account
-						</button>
-					</div>
+					<Container>
+						<div className="wrapper">
+							<h1 className="lead">
+								Welcome <Link to={`/chatify/profile/${profile.username}`}>{user.name}</Link>
+							</h1>
+							<button onClick={this.onDeleteClick} className="btn btn-danger">
+								Delete My Account
+							</button>
+						</div>
+					</Container>
 				);
 			} else {
-				dashboardContent = <CreateProfile />;
+				return <Redirect to="/chatify/home" />;
 			}
 		}
 		return <div className="dashboard">{dashboardContent}</div>;
@@ -57,4 +59,50 @@ const mapStateToProps = (state) => ({
 	auth: state.auth
 });
 
-export default withRouter(connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard));
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(withRouter(Dashboard));
+
+const Container = styled.div`
+	background-image: url(${bg});
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	/* flex-direction: column; */
+	justify-content: center;
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		height: 300px;
+		text-align: center;
+		margin-top: 100px;
+		justify-content: space-around;
+		.lead {
+			/* margin: 100px auto 0 auto; */
+			font-size: 7rem;
+			color: white;
+		}
+		.setup {
+			/* margin: 50px auto 0 auto; */
+			font-size: 5rem;
+			color: rgba(200, 200, 200, 0.7);
+		}
+		a.btn {
+			margin: 0 auto;
+			color: #209cee;
+			font-size: 2rem;
+			text-decoration: none;
+			background: transparent;
+			border: 2px solid #209cee;
+			width: 200px;
+			padding: 18px;
+			border-radius: 25px;
+			&:hover {
+				background: #209cee;
+				border: 2px solid #ffffff;
+				color: #ffffff;
+			}
+		}
+	}
+`;

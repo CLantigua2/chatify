@@ -5,7 +5,9 @@ import bg from '../../img/createprofilebg.jpg';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile } from '../../redux/actions/profileActions';
+import { logoutUser } from '../../redux/actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import Fade from 'react-reveal';
 import { withRouter } from 'react-router-dom';
 
 class CreateProfile extends Component {
@@ -66,66 +68,72 @@ class CreateProfile extends Component {
 		const { errors, question1, question2, question3, question4, username, city, state, status } = this.state;
 		return (
 			<Container>
-				<div className="wrapper">
-					<h1 className="create-profile-header">Create Profile</h1>
-					<div className="bleep">
-						<div className="bleep-wrapper">
-							<ul className="pagination">
-								<Bleep active={question1} />
-								<Bleep active={question2} />
-								<Bleep active={question3} />
-								<Bleep active={question4} />
-							</ul>
+				<Fade>
+					<div className="wrapper">
+						<h1 className="create-profile-header">Create Profile</h1>
+						<div className="bleep">
+							<div className="bleep-wrapper">
+								<ul className="pagination">
+									<Bleep active={question1} />
+									<Bleep active={question2} />
+									<Bleep active={question3} />
+									<Bleep active={question4} />
+								</ul>
+							</div>
 						</div>
-					</div>
-					<form onSubmit={this.onSubmit}>
-						<TextFieldGroup
-							clickHandler={(e) => this.clickQuestion(e, 1)}
-							placeholder="* Profile username"
-							name="username"
-							value={username}
-							active={question1}
-							handleChange={this.changeHandler}
-							error={errors.username}
-							info="A unique username for your profile URL. Your full name, nickname"
-						/>
-						<TextFieldGroup
-							clickHandler={(e) => this.clickQuestion(e, 2)}
-							placeholder="Your status"
-							name="status"
-							active={question2}
-							value={status}
-							handleChange={this.changeHandler}
-							error={errors.status}
-							info="write a status for your friends to see"
-						/>
-						<TextFieldGroup
-							clickHandler={(e) => this.clickQuestion(e, 3)}
-							placeholder="Your City"
-							name="city"
-							active={question3}
-							value={city}
-							handleChange={this.changeHandler}
-							error={errors.city}
-							info="Let us know what City you're from"
-						/>
-						<TextFieldGroup
-							clickHandler={(e) => this.clickQuestion(e, 4)}
-							placeholder="Your State"
-							active={question4}
-							name="state"
-							value={state}
-							handleChange={this.changeHandler}
-							error={errors.state}
-							maxlength="2"
-							info="What state are you from? Two letters only"
-						/>
-						<button type="submit" className="btn">
+						<form onSubmit={this.onSubmit}>
+							<TextFieldGroup
+								clickHandler={(e) => this.clickQuestion(e, 1)}
+								placeholder="* Profile username"
+								name="username"
+								value={username}
+								active={question1}
+								handleChange={this.changeHandler}
+								error={errors.username}
+								info="A unique username for your profile URL. Your full name, nickname"
+							/>
+							<TextFieldGroup
+								clickHandler={(e) => this.clickQuestion(e, 2)}
+								placeholder="Your status"
+								name="status"
+								active={question2}
+								value={status}
+								handleChange={this.changeHandler}
+								error={errors.status}
+								info="write a status for your friends to see"
+							/>
+							<TextFieldGroup
+								clickHandler={(e) => this.clickQuestion(e, 3)}
+								placeholder="Your City"
+								name="city"
+								active={question3}
+								value={city}
+								handleChange={this.changeHandler}
+								error={errors.city}
+								info="Let us know what City you're from"
+							/>
+							<TextFieldGroup
+								clickHandler={(e) => this.clickQuestion(e, 4)}
+								placeholder="Your State"
+								active={question4}
+								name="state"
+								value={state}
+								handleChange={this.changeHandler}
+								error={errors.state}
+								maxlength="2"
+								info="What state are you from? Two letters only"
+							/>
+							<button type="submit" className="btn">
+								<i className="fas fa-robot" />
+								<p>Submit</p>
+							</button>
+						</form>
+						<button type="submit" className="btn" onClick={() => this.props.logoutUser()}>
 							<i className="fas fa-robot" />
-							<p>Submit</p>
+							<p>Logout</p>
 						</button>
-					</form>
-				</div>
+					</div>
+				</Fade>
 			</Container>
 		);
 	}
@@ -134,7 +142,8 @@ class CreateProfile extends Component {
 CreateProfile.proTypes = {
 	profile: propTypes.object.isRequired,
 	errors: propTypes.object.isRequired,
-	createProfile: propTypes.func.isRequired
+	createProfile: propTypes.func.isRequired,
+	logoutUser: propTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -142,11 +151,11 @@ const mapStateToProps = (state) => ({
 	errors: state.errors
 });
 
-export default withRouter(connect(mapStateToProps, { createProfile })(CreateProfile));
+export default connect(mapStateToProps, { createProfile, logoutUser })(withRouter(CreateProfile));
 
 const Container = styled.div`
 	width: 100vw;
-	height: 100vw;
+	height: 100vh;
 	background: url(${bg});
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -223,17 +232,18 @@ const Container = styled.div`
 				display: flex;
 				justify-content: space-around;
 				align-items: center;
-				background-color: #4ef18f;
-				width: 111px;
-				padding: 5px;
-				margin: 20px;
-				border: 2px solid rgba(255, 255, 255, 0);
-				border-radius: 2em;
+				background-color: transparent;
+				width: 200px;
+				padding: 18px;
+				margin: 20px auto;
+				border: 2px solid #4ef18f;
+				border-radius: 25px;
 				box-sizing: border-box;
 				-webkit-text-decoration: none;
 				text-decoration: none;
 				font-family: 'Roboto', sans-serif;
 				font-weight: 300;
+				font-size: 2rem;
 				color: #4ef18f;
 				text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 				text-align: center;
@@ -241,12 +251,44 @@ const Container = styled.div`
 				transition: all 0.2s;
 				i,
 				p {
-					font-size: 1.6rem;
+					font-size: 2rem;
+					color: #4ef18f;
 				}
 
 				&:hover {
-					border-color: rgba(255, 255, 255, 1);
+					background: #4ef18f;
+					border: 2px solid white;
+					background-color: #4ef18f;
 				}
+			}
+		}
+		.btn {
+			cursor: pointer;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			margin: 0 auto;
+			color: rgba(200, 0, 0, 1);
+			font-family: 'Roboto', sans-serif;
+			font-weight: 300;
+			font-size: 2rem;
+			text-decoration: none;
+			background: transparent;
+			border: 2px solid rgba(200, 0, 0, 1);
+			text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+
+			width: 200px;
+			padding: 18px;
+			border-radius: 25px;
+			i,
+			p {
+				font-size: 2rem;
+				color: rgba(200, 0, 0, 1);
+			}
+			&:hover {
+				background: rgba(200, 0, 0, 1);
+				border: 2px solid #ffffff;
+				color: #ffffff;
 			}
 		}
 	}

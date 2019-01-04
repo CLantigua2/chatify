@@ -14,6 +14,8 @@ import Comment from './components/chatify/dashboard/Posts/Comment';
 import Sidebar from './components/chatify/dashboard/Sidebar';
 import ChatifyLanding from './components/landing/ChatifyLanding';
 import Dashboard from './components/profile/Dashboard';
+import Profile from './components/profile/Profile';
+import CreateProfile from './components/profile/CreateProfile';
 
 const App = () => {
 	return (
@@ -29,7 +31,13 @@ const App = () => {
 							<PrivateRoute strict path="/chatify" component={Sidebar} />
 						</Switch>
 						<Switch>
-							<PrivateRoute exact path="/chatify" component={ChatifyLanding} />
+							<PrivateRoute strict path="/chatify/profile/:username" component={Profile} />
+						</Switch>
+						<Switch>
+							<PrivateRoute exact path="/chatify/home" component={ChatifyLanding} />
+						</Switch>
+						<Switch>
+							<PrivateRoute exact path="/create-profile" component={CreateProfile} />
 						</Switch>
 						<Switch>
 							<PrivateRoute exact path="/dashboard" component={Dashboard} />
