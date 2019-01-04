@@ -116,9 +116,10 @@ class CreateProfile extends Component {
 							value={state}
 							handleChange={this.changeHandler}
 							error={errors.state}
+							maxlength="2"
 							info="What state are you from? Two letters only"
 						/>
-						<button type="button" className="btn">
+						<button type="submit" className="btn">
 							<i className="fas fa-robot" />
 							<p>Submit</p>
 						</button>
@@ -131,7 +132,8 @@ class CreateProfile extends Component {
 
 CreateProfile.proTypes = {
 	profile: propTypes.object.isRequired,
-	errors: propTypes.object.isRequired
+	errors: propTypes.object.isRequired,
+	createProfile: propTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

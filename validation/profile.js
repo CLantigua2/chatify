@@ -6,14 +6,14 @@ module.exports = function validateProfileInput(data) {
 
 	data.username = !isEmpty(data.username) ? data.username : '';
 	data.status = !isEmpty(data.status) ? data.status : '';
-	data.location.city = !isEmpty(data.location.city) ? data.location.city : '';
-	data.location.state = !isEmpty(data.location.state) ? data.location.state : '';
+	data.city = !isEmpty(data.city) ? data.city : '';
+	data.state = !isEmpty(data.state) ? data.state : '';
 
 	if (!Validator.isLength(data.username, { min: 2, max: 15 })) {
 		errors.username = 'Username must be between 2 and 15 characters';
 	}
-	if (!Validator.isLength(data.username, { min: 2, max: 2 })) {
-		errors.username = 'Username must be 2 characters';
+	if (!Validator.isLength(data.state, { min: 2, max: 2 })) {
+		errors.state = 'State must be 2 characters';
 	}
 
 	if (Validator.isEmpty(data.username)) {
