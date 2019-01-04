@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import ProfileHeader from './ProfileHeader';
-import ProfileAbout from './ProfileAbout';
 import Loading from '../common/Loading';
 import { getProfileByUsername } from '../../redux/actions/profileActions';
+import styled from 'styled-components';
 
 class Profile extends Component {
 	componentDidMount() {
@@ -13,43 +12,21 @@ class Profile extends Component {
 		username && this.props.getProfileByUsername(username);
 	}
 
-	componentDidUpdate(nextProps) {
-		if (nextProps.profile.profile === null && this.props.profile.loading) {
-			this.props.history.push('/not-found');
-		}
-	}
-
 	render() {
 		const { profile, loading } = this.props.profile;
+		console.log(profile);
 		let profileContent;
 
 		if (profile === null || loading) {
 			profileContent = <Loading />;
 		} else {
 			profileContent = (
-				<div>
-					<div className="row">
-						<div className="col-md-6">
-							<Link className="btn btn-light mb-3 float-left" to="/profiles">
-								Back
-							</Link>
-						</div>
-						<div className="col-md-6" />
-					</div>
+				<React.Fragment>
 					<ProfileHeader profile={profile} />
-					<ProfileAbout profile={profile} />
-				</div>
+				</React.Fragment>
 			);
 		}
-		return (
-			<div className="profile">
-				<div className="container">
-					<div className="row">
-						<div className="col-mid-12">{profileContent}</div>
-					</div>
-				</div>
-			</div>
-		);
+		return <Container>{profileContent}</Container>;
 	}
 }
 
@@ -63,3 +40,11 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getProfileByUsername })(Profile);
+
+const Container = styled.div`
+	margin: 100px auto 100px auto;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+`;

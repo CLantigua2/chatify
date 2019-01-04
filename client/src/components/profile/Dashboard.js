@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getCurrentProfile, deleteAccount } from '../../redux/actions/profileActions';
 import Loading from '../common/Loading';
 import Fade from 'react-reveal';
 import { withRouter } from 'react-router-dom';
-import bg from '../../img/createprofilebg.jpg';
+import bg from '../../img/Space.jpg';
 import styled from 'styled-components';
 
 class Dashboard extends Component {
+	state = {
+		redirect: false
+	};
 	componentDidMount() {
 		this.props.getCurrentProfile();
+		const { profile, loading } = this.props.profile;
+		if (profile !== null || loading === false) {
+			this.id = setTimeout(() => this.setState({ redirect: true }), 5000);
+		}
+	}
+
+	componentWillUnmount() {
+		clearTimeout(this.id);
 	}
 
 	onDeleteClick = (e) => {
@@ -29,21 +40,19 @@ class Dashboard extends Component {
 			if (Object.keys(profile).length > 0) {
 				dashboardContent = (
 					<Container>
-						<div className="wrapper">
-							<h1 className="lead">
-								Welcome <Link to={`/chatify/profile/${profile.username}`}>{user.name}</Link>
-							</h1>
-							<button onClick={this.onDeleteClick} className="btn btn-danger">
-								Delete My Account
-							</button>
-						</div>
+						<Fade>
+							<div className="wrapper">
+								<h1 className="lead">Welcome back {user.name}</h1>
+								<h3 className="setup">Let's get to chatting...</h3>
+							</div>
+						</Fade>
 					</Container>
 				);
-			} else {
-				return <Redirect to="/chatify/home" />;
 			}
 		}
-		return <div className="dashboard">{dashboardContent}</div>;
+		return (
+			<div className="dashboard">{this.state.redirect ? <Redirect to="/chatify/home" /> : dashboardContent}</div>
+		);
 	}
 }
 

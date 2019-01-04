@@ -6,7 +6,6 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser, clearErrors } from '../../redux/actions/authActions';
-import { withRouter } from 'react-router-dom';
 
 // this is the sidebar component for the main login page
 class Login extends React.Component {

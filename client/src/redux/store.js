@@ -1,13 +1,17 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import rootReducer from './reducers';
+import { saveToLocalStorage, loadFromLocalStore } from './storeActions';
+import { throttle } from 'lodash';
 
+// calls to load state from local storage
 // create an initial state object
-const initialState = {};
+const middleware = [ thunk, createLogger() ];
+const persistedState = loadFromLocalStore();
 
-const middleware = [ thunk ];
+const store = createStore(rootReducer, persistedState, compose(applyMiddleware(...middleware)));
 
-const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
+store.subscribe(throttle(() => saveToLocalStorage(store.getState())), 1000);
 
 export default store;

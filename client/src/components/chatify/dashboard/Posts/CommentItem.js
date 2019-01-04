@@ -40,7 +40,6 @@ class CommentItem extends Component {
 	render() {
 		const { comment, channelId, auth } = this.props;
 		const { isEditing, mouseEntered, text, errors } = this.state;
-		console.log(this.props.profile);
 		return (
 			<Container onClick={this.mouseOver}>
 				<div className="user">
@@ -109,7 +108,7 @@ CommentItem.propTypes = {
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
-	profile: state.profile
+	profiles: state.profiles
 });
 
 export default connect(mapStateToProps, { deleteComment, editComment, getProfiles })(CommentItem);

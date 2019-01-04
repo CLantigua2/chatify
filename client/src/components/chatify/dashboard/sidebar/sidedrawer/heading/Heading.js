@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import { logoutUser, clearErrors } from '../../../../../../redux/actions/authActions';
 import { addChannel } from '../../../../../../redux/actions/channelActions';
-import { deleteAccount } from '../../../../../../redux/actions/profileActions';
+import { deleteAccount, getCurrentProfile } from '../../../../../../redux/actions/profileActions';
 import TextFieldGroup from '../../../../../common/TextFieldGroup';
+import { Link, withRouter } from 'react-router-dom';
 
 class Heading extends Component {
 	constructor(props) {
@@ -80,6 +81,10 @@ class Heading extends Component {
 		if (prevProps.errors !== this.props.errors) {
 			this.setState({ errors: this.props.errors });
 		}
+
+		// if (prevProps.profile.profile !== this.props.profile.profile) {
+		// 	return this.props.getCurrentProfile();
+		// }
 	}
 
 	// Set the wrapper ref
@@ -89,8 +94,10 @@ class Heading extends Component {
 
 	render() {
 		const { auth } = this.props;
+		const { profile } = this.props.profile;
 		const { errors, name, purpose } = this.state;
 		// split user name for sidebar
+		console.log(auth.user.id);
 		let nameArr = [];
 		nameArr = auth.user.name.split(' ');
 		return (
@@ -106,7 +113,7 @@ class Heading extends Component {
 							<ul className="settings" ref={this.setWrapperRef}>
 								<li>
 									<i className="fas fa-user-cog" />
-									Edit Profile
+									<Link to={`/chatify/profile/${profile.username}`}>Edit Profile</Link>
 								</li>
 								<hr />
 								<li>
@@ -175,15 +182,19 @@ Heading.propTypes = {
 	errors: propTypes.object.isRequired,
 	logoutUser: propTypes.func.isRequired,
 	addChannel: propTypes.func.isRequired,
-	deleteAccount: propTypes.func.isRequired
+	deleteAccount: propTypes.func.isRequired,
+	getCurrentProfile: propTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
-	errors: state.errors
+	errors: state.errors,
+	profile: state.profile
 });
 
-export default connect(mapStateToProps, { logoutUser, clearErrors, addChannel, deleteAccount })(Heading);
+export default connect(mapStateToProps, { logoutUser, clearErrors, addChannel, deleteAccount, getCurrentProfile })(
+	withRouter(Heading)
+);
 
 const Form = styled.form`
 	position: absolute;
