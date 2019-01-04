@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import Fade from 'react-reveal/Fade';
 
-const TextFieldGroup = ({ name, placeholder, value, error, info, type, handleChange, disabled, autoComplete }) => {
+const TextFieldGroup = ({ name, placeholder, value, error, info, type, handleChange, disabled, autoComplete, active, clickHandler }) => {
 	return (
 		<Fragment>
 			{error ? (
@@ -16,19 +16,23 @@ const TextFieldGroup = ({ name, placeholder, value, error, info, type, handleCha
 					value={value}
 					onChange={handleChange}
 					disabled={disabled}
+					active={active}
+					onClick={clickHandler}
 				/>
 			) : (
-				<Input
-					autoComplete={autoComplete}
-					type={type}
-					errors={error ? true : false}
-					placeholder={placeholder}
-					name={name}
-					value={value}
-					onChange={handleChange}
-					disabled={disabled}
-				/>
-			)}
+					<Input
+						onClick={clickHandler}
+						active={active}
+						autoComplete={autoComplete}
+						type={type}
+						errors={error ? true : false}
+						placeholder={placeholder}
+						name={name}
+						value={value}
+						onChange={handleChange}
+						disabled={disabled}
+					/>
+				)}
 			{error && (
 				<Fade>
 					<Error>{error}</Error>
