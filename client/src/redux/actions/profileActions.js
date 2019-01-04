@@ -26,11 +26,11 @@ export const getCurrentProfile = () => (dispatch) => {
 			});
 		});
 };
-// get current profile by Handle
-export const getProfileByHandle = (handle) => (dispatch) => {
+// get current profile by username
+export const getProfileByUsername = (username) => (dispatch) => {
 	dispatch(setProfileLoading());
 	axios
-		.get(`/profile/handle/${handle}`)
+		.get(`/profile/username/${username}`)
 		.then((res) => {
 			dispatch({
 				type: GET_PROFILE,
@@ -47,7 +47,7 @@ export const getProfileByHandle = (handle) => (dispatch) => {
 
 // create profile
 export const createProfile = (profileData, history) => (dispatch) => {
-	axios.post('/profile', profileData).then((res) => history.push('/dashboard')).catch((err) =>
+	axios.post('/profile', profileData).then((res) => history.push('/chatify')).catch((err) =>
 		dispatch({
 			type: GET_ERRORS,
 			payload: err.response.data
@@ -55,60 +55,6 @@ export const createProfile = (profileData, history) => (dispatch) => {
 	);
 };
 
-// Add experience
-export const addExperience = (expData, history) => (dispatch) => {
-	axios.post('/profile/experience', expData).then((res) => history.push('/dashboard')).catch((err) =>
-		dispatch({
-			type: GET_ERRORS,
-			payload: err.response.data
-		})
-	);
-};
-
-export const addEducation = (eduData, history) => (dispatch) => {
-	axios.post('/profile/education', eduData).then((res) => history.push('/dashboard')).catch((err) =>
-		dispatch({
-			type: GET_ERRORS,
-			payload: err.response.data
-		})
-	);
-};
-
-// Delete Experience
-export const deleteExperience = (id) => (dispatch) => {
-	axios
-		.delete(`/profile/experience/${id}`)
-		.then((res) =>
-			dispatch({
-				type: GET_PROFILE,
-				payload: res.data
-			})
-		)
-		.catch((err) => {
-			dispatch({
-				type: GET_ERRORS,
-				payload: err.response.data
-			});
-		});
-};
-
-// Delete Education
-export const deleteEducation = (id) => (dispatch) => {
-	axios
-		.delete(`/profile/education/${id}`)
-		.then((res) => {
-			dispatch({
-				type: GET_PROFILE,
-				payload: res.data
-			});
-		})
-		.catch((err) => {
-			dispatch({
-				type: GET_ERRORS,
-				payload: err.response.data
-			});
-		});
-};
 
 // Get All Profiles
 export const getProfiles = () => (dispatch) => {

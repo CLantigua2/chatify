@@ -43,7 +43,7 @@ class Login extends React.Component {
 		}
 
 		if (this.props.auth.isAuthenticated) {
-			this.props.history.push('/chatify');
+			this.props.history.push('/chatify/dashboard');
 		}
 	}
 
