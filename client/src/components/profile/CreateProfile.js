@@ -6,6 +6,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile } from '../../redux/actions/profileActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import { withRouter } from 'react-router-dom';
 
 class CreateProfile extends Component {
 	constructor(props) {
@@ -141,7 +142,7 @@ const mapStateToProps = (state) => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProfile })(CreateProfile);
+export default withRouter(connect(mapStateToProps, { createProfile })(CreateProfile));
 
 const Container = styled.div`
 	width: 100vw;

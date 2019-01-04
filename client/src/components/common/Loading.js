@@ -2,38 +2,59 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const Loading = () => {
+	const letters = [
+		{
+			delay: '0s',
+			letter: 'L'
+		},
+		{
+			delay: '.1s',
+			letter: 'o'
+		},
+		{
+			delay: '.2s',
+			letter: 'a'
+		},
+		{
+			delay: '.3s',
+			letter: 'd'
+		},
+		{
+			delay: '.4s',
+			letter: 'i'
+		},
+		{
+			delay: '.5s',
+			letter: 'n'
+		},
+		{
+			delay: '.6s',
+			letter: 'g'
+		},
+		{
+			delay: '.7s',
+			classname: 'period',
+			letter: '.'
+		},
+		{
+			delay: '.8s',
+			classname: 'period',
+			letter: '.'
+		},
+		{
+			delay: '.9s',
+			classname: 'period',
+			letter: '.'
+		}
+	];
+
 	return (
 		<DotWrapper>
-			<Dot delay="0s">
-				<h2>L</h2>
-			</Dot>
-			<Dot delay=".1s">
-				<h2>o</h2>
-			</Dot>
-			<Dot delay=".2s">
-				<h2>a</h2>
-			</Dot>
-			<Dot delay="3s">
-				<h2>d</h2>
-			</Dot>
-			<Dot delay=".4s">
-				<h2>i</h2>
-			</Dot>
-			<Dot delay=".5">
-				<h2>n</h2>
-			</Dot>
-			<Dot delay=".6s">
-				<h2>g</h2>
-			</Dot>
-			<Dot delay=".7" className="period">
-				<h2>. </h2>
-			</Dot>
-			<Dot delay=".8s" className="period">
-				<h2>. </h2>
-			</Dot>
-			<Dot delay=".9" className="period">
-				<h2>. </h2>
-			</Dot>
+			{letters.map((item) => (
+				<Dot key={item.delay} className={item.classname ? item.classname : null} delay={item.delay}>
+					<h2>{item.letter}</h2>
+				</Dot>
+			))}
 		</DotWrapper>
 	);
 };
@@ -47,7 +68,7 @@ const BounceAnimation = keyframes`
 `;
 
 const Dot = styled.div`
-	animation: ${BounceAnimation} 0.5s linear infinite;
+	animation: ${BounceAnimation} 0.5s ease-in-out infinite;
 	animation-delay: ${(props) => props.delay};
 `;
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { deleteComment, editComment } from '../../../../redux/actions/channelActions';
+import { getProfiles } from '../../../../redux/actions/profileActions';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import TextAreaFieldGroup from '../../../common/TextAreaFieldGroup';
@@ -15,6 +16,9 @@ class CommentItem extends Component {
 			mouseEntered: false,
 			errors: {}
 		};
+	}
+	componentDidMount() {
+		this.props.getProfiles();
 	}
 
 	editTrue = (e) => {
@@ -36,6 +40,7 @@ class CommentItem extends Component {
 	render() {
 		const { comment, channelId, auth } = this.props;
 		const { isEditing, mouseEntered, text, errors } = this.state;
+		console.log(this.props.profile);
 		return (
 			<Container onClick={this.mouseOver}>
 				<div className="user">
@@ -98,14 +103,16 @@ CommentItem.propTypes = {
 	onDeleteClick: propTypes.func,
 	mouseOver: propTypes.func,
 	handleChange: propTypes.func,
+	getProfiles: propTypes.func.isRequired,
 	errors: propTypes.object
 };
 
 const mapStateToProps = (state) => ({
-	auth: state.auth
+	auth: state.auth,
+	profile: state.profile
 });
 
-export default connect(mapStateToProps, { deleteComment, editComment })(CommentItem);
+export default connect(mapStateToProps, { deleteComment, editComment, getProfiles })(CommentItem);
 
 const Form = styled.form`
 	width: 100%;
@@ -143,7 +150,8 @@ const Container = styled.div`
 			flex-direction: row;
 			align-items: center;
 			height: 50px;
-			min-width: 100%;
+			max-width: 900px;
+			min-width: 500px;
 			justify-content: space-between;
 			.name {
 				font-weight: bold;
