@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
 import isEmpty from '../../validation/is-empty';
 import styled from 'styled-components';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class ProfileHeader extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isEditing: false,
+			newStatus: ''
+		};
+	}
+
+	changeHandler = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	setEdit = (e) => {
+		this.setState({ isEditing: !this.state.isEditing });
+	};
+
 	render() {
 		const { profile } = this.props;
-
+		const { isEditing } = this.state;
 		return (
 			<Container>
 				<img className="rounded-circle" src={profile.user.avatar} alt="user avatar" />
@@ -13,6 +30,16 @@ class ProfileHeader extends Component {
 					<h1 className="user-name">{profile.user.name}</h1>
 					{isEmpty(profile.username) ? null : <p className="line">{profile.username}</p>}
 					{isEmpty(profile.status) ? null : <p className="line">{profile.status}</p>}
+					{isEditing ? (
+						<div>
+							<button onClick={() => this.setEdit()} className="accept-btn">
+								Accept
+							</button>
+							<button className="cancel-btn">Cancel</button>
+						</div>
+					) : (
+						<button className="edit-btn">Edit Status</button>
+					)}
 					{isEmpty(profile.city) ? null : <p className="line">City: {profile.city}</p>}
 					{isEmpty(profile.state) ? null : <p className="line">State: {profile.state}</p>}
 				</div>
