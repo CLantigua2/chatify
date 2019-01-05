@@ -120,12 +120,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, { deleteComment, editComment, getProfiles })(CommentItem);
 
-const SlideDown = keyframes`
-	0% { opacity: 1, top: 0}
-	50% { opacity: 0.5, top: 10px}
-	100% { opacity: 0, top: 20px}
-`;
-
 const Form = styled.form`
 	width: 100%;
 	textarea {
@@ -134,17 +128,12 @@ const Form = styled.form`
 `;
 
 const Container = styled.div`
-	div.deleted {
-		position: relative;
-		animation: ${SlideDown} 0.5s ease-in;
-	}
 	cursor: pointer;
 	max-width: 2368px;
-	margin-left: 0px;
-	border-radius: 10px;
-	box-shadow: 0px 6px 46px -11px rgba(0, 0, 0, 0.75);
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	margin-bottom: 10px;
+	margin: 1px 0;
+	border-radius: 5px;
+	box-shadow: 0px 6px 46px -11px rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(0, 0, 0, 0.1);
 	overflow: auto;
 	max-height: 500px;
 	min-height: 226px;

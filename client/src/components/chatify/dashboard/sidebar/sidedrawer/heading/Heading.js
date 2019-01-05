@@ -7,6 +7,7 @@ import { addChannel } from '../../../../../../redux/actions/channelActions';
 import { deleteAccount, getCurrentProfile } from '../../../../../../redux/actions/profileActions';
 import TextFieldGroup from '../../../../../common/TextFieldGroup';
 import { Link, withRouter } from 'react-router-dom';
+import isEmpty from '../../../../../../validation/is-empty';
 
 class Heading extends Component {
 	constructor(props) {
@@ -25,7 +26,7 @@ class Heading extends Component {
 		e.preventDefault();
 		e.stopPropagation();
 		this.setState({
-			showMenu: true
+			showMenu: !this.state.showMenu
 		});
 	};
 
@@ -62,8 +63,8 @@ class Heading extends Component {
 		// submit new channel to the server
 		this.props.addChannel(newChannel);
 		// if no errors, close the menu button
-		if (errors.length === 0) {
-			this.setState({ channelOptions: false });
+		if (!isEmpty(errors)) {
+			this.setState({ channelOptions: !this.state.channelOptions, name: '', purpose: '' });
 		}
 	};
 
