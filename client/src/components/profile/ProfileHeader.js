@@ -24,16 +24,20 @@ class ProfileHeader extends Component {
 export default ProfileHeader;
 
 const Container = styled.div`
+	background-color: rgba(71, 125, 219, 1);
 	display: flex;
+	border-radius: 25px;
 	justify-content: column;
-	margin: 0 auto 40px auto;
+	margin: 300px auto;
+	min-width: 500px;
 	width: 50%;
-	height: 100%;
+	height: 400px;
 	justify-content: space-evenly;
 	align-items: center;
 	.rounded-circle {
 		width: 200px;
 		border-radius: 50%;
+		min-width: 150px;
 	}
 	.user-name {
 		font-size: 6rem;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { deleteComment, editComment } from '../../../../redux/actions/channelActions';
 import { getProfiles } from '../../../../redux/actions/profileActions';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Moment from 'react-moment';
 import TextAreaFieldGroup from '../../../common/TextAreaFieldGroup';
 
@@ -14,7 +14,8 @@ class CommentItem extends Component {
 			text: this.props.comment.text,
 			isEditing: false,
 			mouseEntered: false,
-			errors: {}
+			errors: {},
+			deleted: false
 		};
 	}
 	componentDidMount() {
@@ -27,7 +28,10 @@ class CommentItem extends Component {
 	};
 
 	onDeleteClick = (channelId, commentId) => {
-		this.props.deleteComment(channelId, commentId);
+		this.setState({ deleted: true });
+		setTimeout(() => {
+			this.props.deleteComment(channelId, commentId);
+		}, 5000);
 	};
 
 	mouseOver = () => {
@@ -41,7 +45,7 @@ class CommentItem extends Component {
 		const { comment, channelId, auth } = this.props;
 		const { isEditing, mouseEntered, text, errors } = this.state;
 		return (
-			<Container onClick={this.mouseOver}>
+			<Container onClick={this.mouseOver} className={this.state.deleted === false ? null : 'deleted'}>
 				<div className="user">
 					<img className="avatar" src={comment.avatar} alt="comment user avatar" />
 					<div className="stats">
@@ -113,6 +117,12 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, { deleteComment, editComment, getProfiles })(CommentItem);
 
+const SlideDown = keyframes`
+	0% { opacity: 1, top: 0}
+	50% { opacity: 0.5, top: 10px}
+	100% { opacity: 0, top: 20px}
+`;
+
 const Form = styled.form`
 	width: 100%;
 	textarea {
@@ -121,6 +131,10 @@ const Form = styled.form`
 `;
 
 const Container = styled.div`
+	Conatiner.deleted {
+		position: relative;
+		animation: ${SlideDown} 0.5s ease-in;
+	}
 	cursor: pointer;
 	max-width: 2368px;
 	margin-left: 0px;

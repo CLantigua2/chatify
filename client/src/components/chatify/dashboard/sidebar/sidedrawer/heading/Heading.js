@@ -20,6 +20,7 @@ class Heading extends Component {
 		};
 	}
 
+	// open/close user menu
 	showMenu = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -35,14 +36,17 @@ class Heading extends Component {
 		}
 	};
 
+	// log yourself out
 	logout = () => {
 		this.props.logoutUser();
 	};
 
+	// delete your account
 	removeAccount = () => {
 		this.props.deleteAccount();
 	};
 
+	// open menu button
 	createChannel = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -55,7 +59,9 @@ class Heading extends Component {
 		e.preventDefault();
 		const { name, purpose, errors } = this.state;
 		const newChannel = { name, purpose };
+		// submit new channel to the server
 		this.props.addChannel(newChannel);
+		// if no errors, close the menu button
 		if (errors.length === 0) {
 			this.setState({ channelOptions: false });
 		}
@@ -65,26 +71,26 @@ class Heading extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
+	// mount the even listener for clicking outside of the ref
 	componentDidMount() {
 		document.addEventListener('mousedown', this.handleClickOutside);
 	}
 
+	// unmount when done
 	componentWillUnmount() {
 		document.removeEventListener('mousedown', this.handleClickOutside);
 	}
 
+	// check for new errors
 	static getDerivedStateFromProps(nextProps, prevState) {
 		return nextProps.errors ? { errors: nextProps.errors } : this.props.clearErrors();
 	}
 
+	// if errors were found, update the errors state
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.errors !== this.props.errors) {
 			this.setState({ errors: this.props.errors });
 		}
-
-		// if (prevProps.profile.profile !== this.props.profile.profile) {
-		// 	return this.props.getCurrentProfile();
-		// }
 	}
 
 	// Set the wrapper ref
@@ -113,7 +119,7 @@ class Heading extends Component {
 							<ul className="settings" ref={this.setWrapperRef}>
 								<li>
 									<i className="fas fa-user-cog" />
-									<Link to={`/chatify/profile/${profile.username}`}>Edit Profile</Link>
+									<Link to={`/chatify/profile/${profile.username}`}>Edit Status</Link>
 								</li>
 								<hr />
 								<li>

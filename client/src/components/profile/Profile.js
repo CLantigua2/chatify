@@ -5,6 +5,7 @@ import ProfileHeader from './ProfileHeader';
 import Loading from '../common/Loading';
 import { getProfileByUsername } from '../../redux/actions/profileActions';
 import styled from 'styled-components';
+import bg from '../../img/profile.jpg';
 
 class Profile extends Component {
 	componentDidMount() {
@@ -21,9 +22,9 @@ class Profile extends Component {
 			profileContent = <Loading />;
 		} else {
 			profileContent = (
-				<React.Fragment>
+				<Container>
 					<ProfileHeader profile={profile} />
-				</React.Fragment>
+				</Container>
 			);
 		}
 		return <Container>{profileContent}</Container>;
@@ -42,9 +43,11 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { getProfileByUsername })(Profile);
 
 const Container = styled.div`
-	margin: 100px auto 100px auto;
+	background: url(${bg});
+	background-size: cover;
+	background-repeat: no-repeat;
 	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+	min-width: 500px;
+	height: 100vh;
+	padding: 50px;
 `;

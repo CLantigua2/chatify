@@ -6,7 +6,7 @@ const ChatifyLanding = () => {
 	return (
 		<Container>
 			<h1>Welcome to Chat||fy</h1>
-			<h3>Let's start a frienship</h3>
+			<h3>Let's start a friendship</h3>
 		</Container>
 	);
 };
