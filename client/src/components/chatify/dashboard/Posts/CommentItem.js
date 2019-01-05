@@ -6,6 +6,7 @@ import { getProfiles } from '../../../../redux/actions/profileActions';
 import styled, { keyframes } from 'styled-components';
 import Moment from 'react-moment';
 import TextAreaFieldGroup from '../../../common/TextAreaFieldGroup';
+import Fade from 'react-reveal/Fade';
 
 class CommentItem extends Component {
 	constructor(props) {
@@ -15,7 +16,7 @@ class CommentItem extends Component {
 			isEditing: false,
 			mouseEntered: false,
 			errors: {},
-			deleted: false
+			show: true
 		};
 	}
 	componentDidMount() {
@@ -28,10 +29,10 @@ class CommentItem extends Component {
 	};
 
 	onDeleteClick = (channelId, commentId) => {
-		this.setState({ deleted: true });
+		this.setState({ show: !this.state.show });
 		setTimeout(() => {
 			this.props.deleteComment(channelId, commentId);
-		}, 5000);
+		}, 2000);
 	};
 
 	mouseOver = () => {
@@ -45,53 +46,55 @@ class CommentItem extends Component {
 		const { comment, channelId, auth } = this.props;
 		const { isEditing, mouseEntered, text, errors } = this.state;
 		return (
-			<Container onClick={this.mouseOver} className={this.state.deleted === false ? null : 'deleted'}>
-				<div className="user">
-					<img className="avatar" src={comment.avatar} alt="comment user avatar" />
-					<div className="stats">
-						<p className="name">{comment.name}</p>
-						<p className="date">
-							posted <Moment format="DD/MM/YYYY HH:mm">{comment.date}</Moment>
-						</p>
-						{comment.user === auth.user.id && mouseEntered === true ? (
-							<i onClick={this.editTrue} className="fas fa-pencil-alt edit-post" title="edit post" />
-						) : null}
+			<Fade top opposite collapse when={this.state.show}>
+				<Container onClick={this.mouseOver} className={this.state.show ? 'show' : 'hide'}>
+					<div className="user">
+						<img className="avatar" src={comment.avatar} alt="comment user avatar" />
+						<div className="stats">
+							<p className="name">{comment.name}</p>
+							<p className="date">
+								posted <Moment format="DD/MM/YYYY HH:mm">{comment.date}</Moment>
+							</p>
+							{comment.user === auth.user.id && mouseEntered === true ? (
+								<i onClick={this.editTrue} className="fas fa-pencil-alt edit-post" title="edit post" />
+							) : null}
+						</div>
 					</div>
-				</div>
-				{!isEditing ? (
-					<p className="lead">{comment.text}</p>
-				) : (
-					<Form onSubmit={this.onSubmit}>
-						<TextAreaFieldGroup
-							// placeholder="Reply to post"
-							name="text"
-							value={text}
-							handleChange={this.handleChange}
-							error={errors.text}
+					{!isEditing ? (
+						<p className="lead">{comment.text}</p>
+					) : (
+						<Form onSubmit={this.onSubmit}>
+							<TextAreaFieldGroup
+								// placeholder="Reply to post"
+								name="text"
+								value={text}
+								handleChange={this.handleChange}
+								error={errors.text}
+							/>
+						</Form>
+					)}
+					{comment.user === auth.user.id && !isEditing && mouseEntered ? (
+						<button
+							onClick={(e) => {
+								e.preventDefault();
+								this.onDeleteClick(channelId, comment._id);
+							}}
+							type="button"
+							className="btn btn-danger mr-1"
+						>
+							<i className="fas fa-times" />
+						</button>
+					) : isEditing ? (
+						<i
+							className="fas fa-check saveEdit"
+							onClick={(e) => {
+								e.preventDefault();
+								this.props.editComment(channelId, comment._id, text);
+							}}
 						/>
-					</Form>
-				)}
-				{comment.user === auth.user.id && !isEditing && mouseEntered ? (
-					<button
-						onClick={(e) => {
-							e.preventDefault();
-							this.onDeleteClick(channelId, comment._id);
-						}}
-						type="button"
-						className="btn btn-danger mr-1"
-					>
-						<i className="fas fa-times" />
-					</button>
-				) : isEditing ? (
-					<i
-						className="fas fa-check saveEdit"
-						onClick={(e) => {
-							e.preventDefault();
-							this.props.editComment(channelId, comment._id, text);
-						}}
-					/>
-				) : null}
-			</Container>
+					) : null}
+				</Container>
+			</Fade>
 		);
 	}
 }
@@ -131,7 +134,7 @@ const Form = styled.form`
 `;
 
 const Container = styled.div`
-	Conatiner.deleted {
+	div.deleted {
 		position: relative;
 		animation: ${SlideDown} 0.5s ease-in;
 	}
