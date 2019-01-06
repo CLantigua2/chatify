@@ -25,11 +25,6 @@ class ProfileHeader extends Component {
 
 		const profile = this.props.profile.profile;
 		const { username = '', status = '', location: { city = '', state = '' } } = profile;
-		// if (profile) {
-		// 	if (prevProps.profile !== profile) {
-		// 		return { username, status, city, state });
-		// 	}
-		// }
 
 		if (isEmpty(profile)) {
 			this.props.getCurrentProfile();
@@ -109,16 +104,16 @@ class ProfileHeader extends Component {
 		} else {
 			editInputs = (
 				<div className="edit-profile">
-					{isEmpty(profile.username) ? null : <p className="line">{profile.username}</p>}
-					{isEmpty(profile.status) ? (
+					{profile.username ? <p className="line">{profile.username}</p> : null}
+					{profile.status ? (
+						<p className="line">{profile.status}</p>
+					) : (
 						<p className="line">
 							Y U No Make Status{' '}
 							<span role="img" aria-label="Why">
 								🤷‍
 							</span>?
 						</p>
-					) : (
-						<p className="line">{profile.status}</p>
 					)}
 					{isEmpty(profile.location[0].city) ? null : (
 						<p className="line">City: {profile.location[0].city}</p>
@@ -136,18 +131,20 @@ class ProfileHeader extends Component {
 					<h1 className="user-name">{profile.user.name}</h1>
 					{editInputs}
 					{isEditing ? (
-						<div>
-							<button className="accept-btn" onClick={() => this.submitProfile()}>
+						<div className="buttons">
+							<Button green className="btn" onClick={() => this.submitProfile()}>
 								Accept
-							</button>
-							<button className="cancel-btn" onClick={() => this.cancelEdit()}>
+							</Button>
+							<Button red className="btn" onClick={() => this.cancelEdit()}>
 								Cancel
-							</button>
+							</Button>
 						</div>
 					) : (
-						<button className="edit-btn" onClick={() => this.setEdit()}>
-							Edit Status
-						</button>
+						<div className="buttons">
+							<Button white className="btn" onClick={() => this.setEdit()}>
+								Edit Status
+							</Button>
+						</div>
 					)}
 				</div>
 			</Container>
@@ -185,5 +182,32 @@ const Container = styled.div`
 	.line {
 		font-size: 2rem;
 		margin-bottom: 20px;
+	}
+`;
+
+const Button = styled.button`
+	cursor: pointer;
+	padding: 10px;
+	width: 178px;
+	border-radius: 15px;
+	${(props) => (props.white ? `border: 2px solid white; color: white` : null)};
+	${(props) => (props.red ? `border: 2px solid rgb(255,163,140);; color: rgb(255,154,119)` : null)};
+	${(props) => (props.green ? `border: 2px solid rgb(80, 230, 100); color: rgb(80, 230, 100)` : null)};
+	background-color: transparent;
+	font-size: 1.6rem;
+	font-weight: 700;
+	margin-top: 10px;
+	&:first-child {
+		margin-right: 37px;
+	}
+	&:hover {
+		background: white;
+		${(props) => (props.white ? `border: 2px solid white; background-color: black; color: white` : null)};
+		${(props) =>
+			props.red ? `border: 2px solid rgb(255,163,140);; background-color: rgb(255,154,119); color: white` : null};
+		${(props) =>
+			props.green
+				? `border: 2px solid rgb(80, 230, 100); background-color: rgb(80, 230, 100); color: white`
+				: null};
 	}
 `;
