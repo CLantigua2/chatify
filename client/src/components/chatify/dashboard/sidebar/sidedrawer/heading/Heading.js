@@ -112,7 +112,10 @@ class Heading extends Component {
 				<Wrapper>
 					<Container>
 						<Image src={auth.user.avatar} alt={auth.user.name} />
-						<H4>{nameArr[0]}</H4>
+						<div>
+							<H4>{nameArr[0]}</H4>
+							<p className="status">{profile.status}</p>
+						</div>
 					</Container>
 					<div>
 						<i onClick={this.showMenu} className="fas fa-cog cog" />
@@ -312,6 +315,13 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: row;
 	margin-bottom: 20px;
+	.status {
+		color: ${(props) => props.theme.active};
+		margin-top: 13px;
+		font-size: 1.6rem;
+		max-width: 100px;
+		text-overflow: ellipsis;
+	}
 `;
 
 const Image = styled.img`
