@@ -49,6 +49,9 @@ class Dashboard extends Component {
 					</Container>
 				);
 			}
+			if (Object.keys(profile).length === 0) {
+				dashboardContent = <Redirect to="/create-profile" />;
+			}
 		}
 		return (
 			<div className="dashboard">{this.state.redirect ? <Redirect to="/chatify/home" /> : dashboardContent}</div>

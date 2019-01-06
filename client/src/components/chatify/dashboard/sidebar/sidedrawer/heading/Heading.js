@@ -63,7 +63,7 @@ class Heading extends Component {
 		// submit new channel to the server
 		this.props.addChannel(newChannel);
 		// if no errors, close the menu button
-		if (!isEmpty(errors)) {
+		if (isEmpty(errors)) {
 			this.setState({ channelOptions: !this.state.channelOptions, name: '', purpose: '' });
 		}
 	};

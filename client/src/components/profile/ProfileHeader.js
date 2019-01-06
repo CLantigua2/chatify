@@ -18,26 +18,20 @@ class ProfileHeader extends Component {
 		};
 	}
 
-	// componentDidMount() {
-	// 	this.props.getCurrentProfile();
-	// }
-
 	componentDidUpdate(prevProps) {
 		if (prevProps.errors !== this.props.errors) {
 			this.setState({ errors: this.props.errors });
 		}
 
-		if (this.props.profile.profile) {
-			const profile = this.props.profile.profile;
+		const profile = this.props.profile.profile;
+		const { username = '', status = '', location: { city = '', state = '' } } = profile;
+		// if (profile) {
+		// 	if (prevProps.profile !== profile) {
+		// 		return { username, status, city, state });
+		// 	}
+		// }
 
-			const { username = '', status = '', location: { city = '', state = '' } } = profile;
-
-			if (prevProps.profile !== this.props.profile) {
-				this.setState({ username, status, city, state });
-			}
-		}
-
-		if (isEmpty(this.props.profile.profile)) {
+		if (isEmpty(profile)) {
 			this.props.getCurrentProfile();
 		}
 	}
@@ -47,7 +41,14 @@ class ProfileHeader extends Component {
 	};
 
 	setEdit = (e) => {
-		this.setState({ isEditing: true, oldStatus: this.props.profile.status });
+		const profile = this.props.profile.profile;
+		this.setState({
+			isEditing: true,
+			status: profile.status,
+			username: profile.username,
+			city: profile.location[0].city,
+			state: profile.location[0].state
+		});
 	};
 
 	cancelEdit = (e) => {
@@ -56,9 +57,10 @@ class ProfileHeader extends Component {
 
 	submitProfile = (e) => {
 		const profileData = {
-			username: this.state.username,
+			username: this.state.username.replace(' ', '-'),
 			status: this.state.status,
-			location: this.state.location
+			city: this.state.city,
+			state: this.state.state
 		};
 		this.props.createProfile(profileData);
 	};
@@ -106,9 +108,9 @@ class ProfileHeader extends Component {
 			);
 		} else {
 			editInputs = (
-				<div>
-					{isEmpty(username) ? null : <p className="line">{username}</p>}
-					{isEmpty(status) ? (
+				<div className="edit-profile">
+					{isEmpty(profile.username) ? null : <p className="line">{profile.username}</p>}
+					{isEmpty(profile.status) ? (
 						<p className="line">
 							Y U No Make Status{' '}
 							<span role="img" aria-label="Why">
@@ -118,8 +120,12 @@ class ProfileHeader extends Component {
 					) : (
 						<p className="line">{profile.status}</p>
 					)}
-					{isEmpty(city) ? null : <p className="line">City: {city}</p>}
-					{isEmpty(state) ? null : <p className="line">State: {state}</p>}
+					{isEmpty(profile.location[0].city) ? null : (
+						<p className="line">City: {profile.location[0].city}</p>
+					)}
+					{isEmpty(profile.location[0].state) ? null : (
+						<p className="line">State: {profile.location[0].state}</p>
+					)}
 				</div>
 			);
 		}

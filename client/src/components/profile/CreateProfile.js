@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { createProfile } from '../../redux/actions/profileActions';
 import { logoutUser } from '../../redux/actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
-import Fade from 'react-reveal';
+import Fade from 'react-reveal/Fade';
 import { withRouter } from 'react-router-dom';
 
 class CreateProfile extends Component {
@@ -86,7 +86,7 @@ class CreateProfile extends Component {
 								clickHandler={(e) => this.clickQuestion(e, 1)}
 								placeholder="* Profile username"
 								name="username"
-								value={username}
+								value={username.replace(' ', '-')}
 								active={question1}
 								handleChange={this.changeHandler}
 								error={errors.username}
