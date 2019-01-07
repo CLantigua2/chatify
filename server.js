@@ -49,7 +49,7 @@ server.get('/', (req, res) => {
 if (process.env.NODE_ENV === 'production') {
 	// Set static folder
 	server.use(express.static('client/build'));
-
+	// get everything that is not in the api routes
 	server.get('*', (req, res) => {
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 	});
