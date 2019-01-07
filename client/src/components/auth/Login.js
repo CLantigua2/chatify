@@ -33,10 +33,12 @@ class Login extends React.Component {
 		this.props.loginUser(newUser);
 	};
 
+	// checks for new errors
 	static getDerivedStateFromProps(nextProps, prevState) {
 		return nextProps.errors ? { errors: nextProps.errors } : this.props.clearErrors();
 	}
 
+	// if new errors, adds them to state
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.errors !== this.props.errors) {
 			this.setState({ errors: this.props.errors });
