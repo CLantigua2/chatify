@@ -13,8 +13,6 @@ class ChannelItem extends Component {
 
 	render() {
 		const { channel, auth, toggleDrawer } = this.props;
-		console.log(channel.user);
-		console.log(auth.user.id);
 		const atSign = '@';
 		return (
 			<li>

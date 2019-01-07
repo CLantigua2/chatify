@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import isEmpty from '../../validation/is-empty';
 import styled from 'styled-components';
 import TextFieldGroup from '../common/TextFieldGroup';
+import { withRouter } from 'react-router-dom';
 import { createProfile, getCurrentProfile } from '../../redux/actions/profileActions';
 import { connect } from 'react-redux';
 
@@ -18,47 +19,61 @@ class ProfileHeader extends Component {
 		};
 	}
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.errors !== this.props.errors) {
-			this.setState({ errors: this.props.errors });
-		}
-
-		const profile = this.props.profile.profile;
-		const { username = '', status = '', location: { city = '', state = '' } } = profile;
-
-		if (isEmpty(profile)) {
-			this.props.getCurrentProfile();
-		}
-	}
-
 	changeHandler = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	setEdit = (e) => {
-		const profile = this.props.profile.profile;
 		this.setState({
 			isEditing: true,
-			status: profile.status,
-			username: profile.username,
-			city: profile.location[0].city,
-			state: profile.location[0].state
+			status: this.props.profile.profile.status,
+			username: this.props.profile.profile.username,
+			city: this.props.profile.profile.location[0].city,
+			state: this.props.profile.profile.location[0].state
 		});
 	};
 
-	cancelEdit = (e) => {
-		this.setState({ isEditing: false, newStatus: this.props.profile.status });
+	cancelEdit = () => {
+		this.setState({ isEditing: false, status: this.props.profile.status });
 	};
 
-	submitProfile = (e) => {
+	submitProfile = () => {
 		const profileData = {
-			username: this.state.username.replace(' ', '-'),
+			username: this.state.username,
 			status: this.state.status,
 			city: this.state.city,
 			state: this.state.state
 		};
 		this.props.createProfile(profileData);
+		this.setState({
+			isEditing: false
+		});
 	};
+
+	// check for new errors
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (nextProps.errors) return { errors: nextProps.errors };
+		if (nextProps.profile.username) return { username: nextProps.profile.username };
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.errors !== this.props.errors) {
+			this.setState({ errors: this.props.errors });
+		}
+
+		if (isEmpty(this.props.profile.profile)) {
+			this.props.getCurrentProfile();
+		}
+		if (this.props.profile.profile !== prevProps.profile.profile) {
+			this.props.getCurrentProfile();
+			return this.setState({
+				username: this.props.profile.profile.username,
+				status: this.props.profile.profile.status,
+				city: this.props.profile.profile.location[0].city,
+				state: this.props.profile.profile.location[0].state
+			});
+		}
+	}
 
 	render() {
 		const { profile } = this.props.profile;
@@ -68,9 +83,9 @@ class ProfileHeader extends Component {
 			editInputs = (
 				<div>
 					<TextFieldGroup
+						placeholder="New username..."
 						type="text"
-						placeholder="New username.."
-						value={username}
+						value={username.replace(' ', '-')}
 						name="username"
 						handleChange={this.changeHandler}
 						errors={errors.username}
@@ -157,7 +172,7 @@ const mapStateToProps = (state) => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(ProfileHeader);
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(ProfileHeader));
 
 const Container = styled.div`
 	background-color: rgba(71, 125, 219, 1);

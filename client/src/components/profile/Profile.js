@@ -9,8 +9,8 @@ import bg from '../../img/profile.jpg';
 
 class Profile extends Component {
 	componentDidMount() {
-		const { username } = this.props.match.params;
-		username && this.props.getProfileByUsername(username);
+		const { id } = this.props.match.params;
+		id && this.props.getProfileByUsername(id);
 	}
 
 	render() {

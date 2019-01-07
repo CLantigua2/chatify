@@ -56,11 +56,10 @@ router.get('/all', (req, res) => {
 // @route   GET api/profile/username/:username
 // @desc    Get profile by username
 // @access  Public
-
-router.get('/username/:username', (req, res) => {
+router.get('/username/:id', (req, res) => {
 	const errors = {};
 
-	Profile.findOne({ username: req.params.username })
+	Profile.findOne({ id: req.params._id })
 		.populate('user', [ 'name', 'avatar' ])
 		.then((profile) => {
 			if (!profile) {
@@ -110,8 +109,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 	if (req.body.username) profileFields.username = req.body.username;
 	if (req.body.status) profileFields.status = req.body.status;
 	// Social
-	if (req.body.city) profileFields.city = req.body.city;
-	if (req.body.state) profileFields.state = req.body.state;
+	profileFields.location = {};
+	if (req.body.city) profileFields.location.city = req.body.city;
+	if (req.body.state) profileFields.location.state = req.body.state;
 
 	Profile.findOne({ user: req.user.id }).then((profile) => {
 		if (profile) {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { deleteComment, editComment } from '../../../../redux/actions/channelActions';
 import { getProfiles } from '../../../../redux/actions/profileActions';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Moment from 'react-moment';
 import TextAreaFieldGroup from '../../../common/TextAreaFieldGroup';
 import Fade from 'react-reveal/Fade';
@@ -55,9 +55,9 @@ class CommentItem extends Component {
 							<p className="date">
 								posted <Moment format="DD/MM/YYYY HH:mm">{comment.date}</Moment>
 							</p>
-							{comment.user === auth.user.id && mouseEntered === true ? (
-								<i onClick={this.editTrue} className="fas fa-pencil-alt edit-post" title="edit post" />
-							) : null}
+							<div>
+								<p>{this.props.profile.profile.status ? this.props.profile.profile.status : ''}</p>
+							</div>
 						</div>
 					</div>
 					{!isEditing ? (
@@ -84,14 +84,6 @@ class CommentItem extends Component {
 						>
 							<i className="fas fa-times" />
 						</button>
-					) : isEditing ? (
-						<i
-							className="fas fa-check saveEdit"
-							onClick={(e) => {
-								e.preventDefault();
-								this.props.editComment(channelId, comment._id, text);
-							}}
-						/>
 					) : null}
 				</Container>
 			</Fade>
@@ -104,6 +96,7 @@ CommentItem.propTypes = {
 	comment: propTypes.object.isRequired,
 	channelId: propTypes.string.isRequired,
 	auth: propTypes.object.isRequired,
+	profile: propTypes.object.isRequired,
 	editComment: propTypes.func.isRequired,
 	editTrue: propTypes.func,
 	onDeleteClick: propTypes.func,
@@ -115,7 +108,8 @@ CommentItem.propTypes = {
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
-	profiles: state.profiles
+	profiles: state.profiles,
+	profile: state.profile
 });
 
 export default connect(mapStateToProps, { deleteComment, editComment, getProfiles })(CommentItem);

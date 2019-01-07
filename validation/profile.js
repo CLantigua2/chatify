@@ -1,5 +1,6 @@
 const Validator = require('validator');
 const isEmpty = require('./is-empty');
+const stateChecker = require('./states');
 
 module.exports = function validateProfileInput(data) {
 	let errors = {};
@@ -12,8 +13,14 @@ module.exports = function validateProfileInput(data) {
 	if (!Validator.isLength(data.username, { min: 2, max: 15 })) {
 		errors.username = 'Username must be between 2 and 15 characters';
 	}
-	if (!Validator.isLength(data.state, { min: 2, max: 2 })) {
-		errors.state = 'State must be 2 characters';
+
+	if (data.state) {
+		if (!Validator.isLength(data.state, { min: 2, max: 2 })) {
+			errors.state = 'State must be 2 characters';
+		}
+		if (!stateChecker(data.state)) {
+			errors.state = 'Please enter a valid State';
+		}
 	}
 
 	if (Validator.isEmpty(data.username)) {

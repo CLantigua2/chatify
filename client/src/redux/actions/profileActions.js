@@ -27,10 +27,10 @@ export const getCurrentProfile = () => (dispatch) => {
 		});
 };
 // get current profile by username
-export const getProfileByUsername = (username) => (dispatch) => {
+export const getProfileByUsername = (id) => (dispatch) => {
 	dispatch(setProfileLoading());
 	axios
-		.get(`/profile/username/${username}`)
+		.get(`/profile/username/${id}`)
 		.then((res) => {
 			dispatch({
 				type: GET_PROFILE,
@@ -47,12 +47,21 @@ export const getProfileByUsername = (username) => (dispatch) => {
 
 // create profile
 export const createProfile = (profileData, history) => (dispatch) => {
-	axios.post('/profile', profileData).then((res) => history.push('/dashboard')).catch((err) =>
-		dispatch({
-			type: GET_ERRORS,
-			payload: err.response.data
-		})
-	);
+	axios
+		.post('/profile', profileData)
+		.then((res) =>
+			dispatch({
+				type: GET_PROFILE,
+				payload: res.data
+			})
+		)
+		.then((res) => history.push('/dashboard'))
+		.catch((err) =>
+			dispatch({
+				type: GET_ERRORS,
+				payload: {}
+			})
+		);
 };
 
 // Get All Profiles

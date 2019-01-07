@@ -31,7 +31,7 @@ const App = () => {
 							<PrivateRoute strict path="/chatify" component={Sidebar} />
 						</Switch>
 						<Switch>
-							<PrivateRoute strict path="/chatify/profile/:username" component={Profile} />
+							<PrivateRoute strict path="/chatify/profile/:id" component={Profile} />
 						</Switch>
 						<Switch>
 							<PrivateRoute path="/chatify/home" component={ChatifyLanding} />

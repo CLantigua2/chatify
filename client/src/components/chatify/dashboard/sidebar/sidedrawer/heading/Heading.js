@@ -92,6 +92,8 @@ class Heading extends Component {
 		if (prevProps.errors !== this.props.errors) {
 			this.setState({ errors: this.props.errors });
 		}
+
+		if (prevProps.profile.profile !== this.props.profile.profile) return this.props.profile.profile;
 	}
 
 	// Set the wrapper ref
@@ -104,7 +106,6 @@ class Heading extends Component {
 		const { profile } = this.props.profile;
 		const { errors, name, purpose } = this.state;
 		// split user name for sidebar
-		console.log(auth.user.id);
 		let nameArr = [];
 		nameArr = auth.user.name.split(' ');
 		return (
@@ -123,12 +124,7 @@ class Heading extends Component {
 							<ul className="settings" ref={this.setWrapperRef}>
 								<li>
 									<i className="fas fa-user-cog" />
-									<Link to={`/chatify/profile/${profile.username}`}>Edit Status</Link>
-								</li>
-								<hr />
-								<li>
-									<i className="far fa-list-alt" />
-									See Channels
+									<Link to={`/chatify/profile/${profile._id}`}>Edit Status</Link>
 								</li>
 								<hr />
 								<li onClick={() => this.logout()}>
@@ -217,7 +213,7 @@ const Form = styled.form`
 	background: #ffffff;
 	border: 1px solid red;
 	width: 238px;
-	height: 239px;
+	height: 205px;
 	padding: 16px;
 	box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.75);
 	background: #ffffff;
