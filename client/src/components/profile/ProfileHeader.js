@@ -45,15 +45,16 @@ class ProfileHeader extends Component {
 			state: this.state.state
 		};
 		this.props.createProfile(profileData);
-		this.setState({
-			isEditing: false
-		});
+		if (isEmpty(this.state.errors)) {
+			this.setState({
+				isEditing: false
+			});
+		}
 	};
 
 	// check for new errors
 	static getDerivedStateFromProps(nextProps, prevState) {
-		if (nextProps.errors) return { errors: nextProps.errors };
-		if (nextProps.profile.username) return { username: nextProps.profile.username };
+		return nextProps.errors ? { errors: nextProps.errors } : null;
 	}
 
 	componentDidUpdate(prevProps) {

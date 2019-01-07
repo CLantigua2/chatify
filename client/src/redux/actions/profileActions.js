@@ -5,7 +5,8 @@ import {
 	GET_ERRORS,
 	CLEAR_CURRENT_PROFILE,
 	SET_CURRENT_USER,
-	GET_PROFILES
+	GET_PROFILES,
+	CLEAR_ERRORS
 } from './types';
 
 // get current profile
@@ -46,8 +47,9 @@ export const getProfileByUsername = (id) => (dispatch) => {
 };
 
 // create profile
-export const createProfile = (profileData, history) => (dispatch) => {
-	axios
+export const createProfile = (profileData, history) => async (dispatch) => {
+	await clearErrors();
+	await axios
 		.post('/profile', profileData)
 		.then((res) =>
 			dispatch({
@@ -59,7 +61,7 @@ export const createProfile = (profileData, history) => (dispatch) => {
 		.catch((err) =>
 			dispatch({
 				type: GET_ERRORS,
-				payload: {}
+				payload: err.response.data.username
 			})
 		);
 };
@@ -114,5 +116,12 @@ export const setProfileLoading = () => {
 export const clearCurrentProfile = () => {
 	return {
 		type: CLEAR_CURRENT_PROFILE
+	};
+};
+
+// Clear errors
+export const clearErrors = () => {
+	return {
+		type: CLEAR_ERRORS
 	};
 };
