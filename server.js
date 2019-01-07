@@ -41,18 +41,21 @@ server.use('/api/profile', profile);
 server.use('/api/channels', channels);
 
 /// server test route ///
-server.get('/', (req, res) => {
-	res.status(200).json({ api: 'up' });
-});
+// server.get('/', (req, res) => {
+// 	res.status(200).json({ api: 'up' });
+// });
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
 	// Set static folder
 	server.use(express.static('client/build'));
-	// get everything that is not in the api routes
+
 	server.get('*', (req, res) => {
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 	});
 }
 
-module.exports = server;
+const port = process.env.PORT || 9000;
+server.listen(port, () => {
+	console.log(`This server is over ${port}`);
+});
