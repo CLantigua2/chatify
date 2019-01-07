@@ -55,7 +55,6 @@ if (process.env.NODE_ENV === 'production') {
 	});
 }
 
-const port = process.env.PORT || 9000;
-server.listen(port, () => {
+server.listen(process.env.PORT || 9000, () => {
 	console.log(`This server is over ${port}`);
 });
