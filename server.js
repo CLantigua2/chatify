@@ -55,7 +55,7 @@ if (process.env.NODE_ENV === 'production') {
 	});
 }
 
-server.use(favicon(__dirname + 'client/public/favicon.ico'));
+// server.use(favicon(__dirname + 'client/public/favicon.ico'));
 
 const port = process.env.PORT || 9000;
 server.listen(port, () => {
