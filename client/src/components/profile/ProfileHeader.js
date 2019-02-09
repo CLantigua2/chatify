@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import isEmpty from "../../validation/is-empty"
 import styled from "styled-components"
 import TextFieldGroup from "../common/TextFieldGroup"
-import { withRouter } from "react-router-dom"
 import {
   createProfile,
   getCurrentProfile
