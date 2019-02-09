@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 // Post model
-const Channel = require('../../models/channel');
+const Channel = require('../../models/Channel');
 // Profile model
 const Profile = require('../../models/Profile');
 
