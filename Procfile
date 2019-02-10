@@ -1,1 +1,1 @@
-web: node server.js
+web: --env production && node server.js
