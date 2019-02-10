@@ -14,10 +14,14 @@ const server = express()
 
 // DB Config
 const db = require("./config/keys").mongoURI
+const options = {
+  reconnectTries: Number.MAX_VALUE,
+  poolSize: 10
+}
 
 // Connect to mongoDB through mongoose
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect((db, options), { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err))
 // global.db = mongoose.createConnection(db, { useNewUrlParser: true })
