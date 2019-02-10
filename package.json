@@ -41,5 +41,8 @@
   },
   "engine": {
     "node": "10.15.0"
+  },
+  "resolutions": {
+    "ajv": "6.8.1"
   }
 }
