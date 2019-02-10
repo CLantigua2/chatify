@@ -7,12 +7,12 @@
   "author": "Carlos Lantigua",
   "private": false,
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "yarn --cwd ./client install",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "client": "yarn --cwd ./client start",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "postinstall": "yarn --cwd ./client build",
     "test": "jest --watch --verbose"
   },
   "jest": {
