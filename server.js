@@ -16,11 +16,11 @@ const server = express()
 const db = require("./config/keys").mongoURI
 
 // Connect to mongoDB through mongoose
-// mongoose
-//   .connect(db, { useNewUrlParser: true })
-//   .then(() => console.log("MongoDB Connected"))
-//   .catch(err => console.log(err))
-global.db = mongoose.createConnection(db, { useNewUrlParser: true })
+mongoose
+  .connect(db, { useNewUrlParser: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err))
+// global.db = mongoose.createConnection(db, { useNewUrlParser: true })
 
 // Passport middleware
 server.use(passport.initialize())
