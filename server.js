@@ -16,10 +16,11 @@ const server = express()
 const db = require("./config/keys").mongoURI
 
 // Connect to mongoDB through mongoose
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err))
+// mongoose
+//   .connect(db, { useNewUrlParser: true })
+//   .then(() => console.log("MongoDB Connected"))
+//   .catch(err => console.log(err))
+global.db = mongoose.createConnection(db, { useNewUrlParser: true })
 
 // Passport middleware
 server.use(passport.initialize())
@@ -50,7 +51,7 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 9000
 server.listen(port, () => {
   console.log(`This server is over ${port}`)
 })
