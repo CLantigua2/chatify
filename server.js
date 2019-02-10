@@ -9,7 +9,7 @@ const helmet = require("helmet")
 const users = require("./routes/api/users")
 const profile = require("./routes/api/profile")
 const channels = require("./routes/api/channel")
-const path = require("path")
+// const path = require("path")
 
 const server = express()
 
@@ -54,15 +54,17 @@ server.get("/", (req, res) => {
   }
 })
 
-// Server static assets if in production
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  server.use(express.static("client/build"))
+// // Server static assets if in production
+// if (process.env.NODE_ENV === "production") {
+//   // Set static folder
+//   server.use(express.static("client/build"))
 
-  server.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-  })
-}
+//   server.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+//   })
+// }
 
-// const port = process.env.PORT || 9000
-server.listen(process.env.PORT || 9000)
+const port = process.env.PORT || 9000
+server.listen(port, () => {
+  console.log(`This server is over ${port}`)
+})
