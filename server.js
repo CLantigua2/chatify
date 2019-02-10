@@ -42,14 +42,14 @@ server.use("/api/profile", profile)
 server.use("/api/channels", channels)
 
 // Server static assets if in production
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  server.use(express.static("client/build"))
+// if (process.env.NODE_ENV === "production") {
+//   // Set static folder
+//   server.use(express.static("client/build"))
 
-  server.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-  })
-}
+//   server.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+//   })
+// }
 
 const port = process.env.PORT || 9000
 server.listen(port, () => {
