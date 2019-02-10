@@ -45,6 +45,15 @@ server.use("/api/users", users)
 server.use("/api/profile", profile)
 server.use("/api/channels", channels)
 
+server.get("/", (req, res) => {
+  if (err) {
+    res.status(503).json({ message: "Server is damaged" }, res)
+    console.log(err)
+  } else {
+    res.status(200).json({ message: "Server is alive" }, res)
+  }
+})
+
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
