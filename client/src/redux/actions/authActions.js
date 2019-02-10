@@ -1,13 +1,14 @@
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types';
-
 import jwt_decode from 'jwt-decode';
+const baseURL = process.env.REACT_APP_SERVER_URL
+
 
 // Register user
 
 export const registerUser = (userData, history) => async (dispatch) => {
-	await axios.post('/users/register', userData).then((res) => history.push('/login')).catch((err) =>
+	await axios.post(`${baseURL}/users/register`, userData).then((res) => history.push('/login')).catch((err) =>
 		dispatch({
 			type: GET_ERRORS,
 			payload: err.response.data
@@ -18,7 +19,7 @@ export const registerUser = (userData, history) => async (dispatch) => {
 // Login - get user token
 export const loginUser = (userData) => async (dispatch) => {
 	await axios
-		.post('/users/login', userData)
+		.post(`${baseURL}/users/login`, userData)
 		.then((res) => {
 			// Save to localstorage
 			const { token } = res.data;

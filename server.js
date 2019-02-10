@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const mongoose = require("mongoose")
 const passport = require("passport")
@@ -13,13 +14,6 @@ const path = require("path")
 const server = express()
 
 // DB Config
-const db = require("./config/keys").mongoURI
-
-// Connect to mongoDB through mongoose
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err))
 
 // Passport middleware
 server.use(passport.initialize())
@@ -34,8 +28,19 @@ server.use(bodyParser.json())
 // Passport Config
 require("./config/passport")(passport)
 
-//////// Use Routes /////////////
+const options = {
+  useNewUrlParser: true
+}
 
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/chat"
+
+// Connect to mongoDB through mongoose
+mongoose
+  .connect(uri, options)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err.message))
+
+//////// Use Routes /////////////
 server.use("/api/users", users)
 server.use("/api/profile", profile)
 server.use("/api/channels", channels)
