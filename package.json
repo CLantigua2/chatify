@@ -12,7 +12,7 @@
     "server": "nodemon server.js",
     "client": "yarn --cwd ./client start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "postinstall": "yarn --cwd ./client build",
+    "postinstall": "yarn --cwd ./client install && yarn --cwd ./client build",
     "test": "jest --watch --verbose"
   },
   "jest": {
