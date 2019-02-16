@@ -28,15 +28,10 @@ server.use(bodyParser.json())
 // Passport Config
 require("./config/passport")(passport)
 
-const options = {
-  useNewUrlParser: true
-}
-
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/chat"
-
 // Connect to mongoDB through mongoose
 mongoose
-  .connect(uri, options)
+  .connect(uri, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err.message))
 
