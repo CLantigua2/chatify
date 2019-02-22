@@ -9,7 +9,7 @@ const helmet = require("helmet")
 const users = require("./routes/api/users")
 const profile = require("./routes/api/profile")
 const channels = require("./routes/api/channel")
-const path = require("path")
+// const path = require("path")
 
 const server = express()
 
@@ -28,15 +28,10 @@ server.use(bodyParser.json())
 // Passport Config
 require("./config/passport")(passport)
 
-const options = {
-  useNewUrlParser: true
-}
-
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/chat"
-
 // Connect to mongoDB through mongoose
 mongoose
-  .connect(uri, options)
+  .connect(uri, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err.message))
 
@@ -45,15 +40,9 @@ server.use("/api/users", users)
 server.use("/api/profile", profile)
 server.use("/api/channels", channels)
 
-// Server static assets if in production
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  server.use(express.static("client/build"))
-
-  server.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-  })
-}
+server.get("/", (req, res) => {
+  res.status(200).json({ api: "running" })
+})
 
 const port = process.env.PORT || 9000
 server.listen(port, () => {
