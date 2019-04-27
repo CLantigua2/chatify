@@ -34,4 +34,4 @@ Chatify requires you to create your own environmental files and variables to run
 - In the react client root add a `.env.development` file with the following variable.
   - REACT_APP_SERVER_URL=[http://localhost:9000] **this will need to be changed to your server URL on deployement**
 - run `yarn dev`
-- The site will compile both server side and
+- The site will compile both server side and client side and open in your browser.
